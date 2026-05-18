@@ -373,9 +373,147 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
 .gov-pill.grey{background:rgba(184,179,168,0.1);color:var(--ink-3)}
 .gov-pill.yes{background:rgba(125,216,127,0.12);color:var(--good)}
 .gov-pill.no{background:rgba(184,179,168,0.1);color:var(--ink-3)}
+
+/* LOGIN OVERLAY */
+.login-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-overlay.hidden{display:none}
+.login-box{background:var(--panel);border:1px solid var(--line-2);border-radius:8px;padding:40px 36px;max-width:420px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,0.6)}
+.login-brand{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.login-mark{width:32px;height:32px;background:var(--accent);border-radius:5px;flex-shrink:0;position:relative}
+.login-mark::after{content:'';position:absolute;inset:8px;border:2px solid #000;border-radius:2px}
+.login-title{font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--ink);line-height:1.2;letter-spacing:-0.01em}
+.login-title em{font-style:italic;color:var(--accent)}
+.login-subtitle{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:24px 0 18px;border-top:1px solid var(--line);padding-top:18px}
+.login-form{display:flex;flex-direction:column;gap:10px}
+.login-label{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.login-input{background:var(--bg-2);border:1px solid var(--line-2);color:var(--ink);padding:12px 14px;font-size:14px;font-family:'JetBrains Mono',monospace;border-radius:5px;outline:none;transition:border-color 0.2s}
+.login-input:focus{border-color:var(--accent)}
+.login-error{font-size:11px;color:var(--bad);font-family:'JetBrains Mono',monospace;min-height:16px;letter-spacing:0.02em}
+.login-submit{background:var(--accent);color:#000;border:none;padding:12px 18px;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:5px;font-family:inherit;transition:background 0.2s;margin-top:6px}
+.login-submit:hover{background:#bfeb2a}
+.login-footer{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-weight:500}
+
+/* USER BADGE (post-login) */
+.user-badge{position:fixed;top:14px;right:14px;background:var(--panel);border:1px solid var(--line-2);border-radius:20px;padding:6px 14px 6px 12px;display:flex;align-items:center;gap:8px;z-index:9000;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-family:'JetBrains Mono',monospace}
+.user-badge .ub-icon{color:var(--good);font-size:10px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.user-badge .ub-name{font-size:11px;color:var(--ink);font-weight:600;letter-spacing:0.05em}
+.user-badge .ub-divider{color:var(--line-2);font-size:11px}
+.user-badge .ub-logout{background:transparent;border:none;color:var(--ink-3);font-size:10px;font-family:inherit;cursor:pointer;padding:2px 4px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;transition:color 0.2s}
+.user-badge .ub-logout:hover{color:var(--bad)}
+
+/* CHAT ASSISTANT */
+.chat-trigger{position:fixed;bottom:24px;right:24px;background:var(--accent);color:#000;border:none;border-radius:28px;padding:14px 20px;display:flex;align-items:center;gap:10px;cursor:pointer;font-family:'Inter Tight',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;box-shadow:0 8px 24px rgba(212,255,58,0.3),0 0 0 1px rgba(0,0,0,0.1);z-index:9100;transition:all 0.2s}
+.chat-trigger:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(212,255,58,0.4)}
+.chat-trigger.hidden{display:none}
+.chat-trigger .ct-icon{font-size:14px;font-family:'Fraunces',serif;animation:pulse-accent 2.5s infinite}
+@keyframes pulse-accent{0%,100%{opacity:1}50%{opacity:0.65}}
+
+.chat-panel{position:fixed;bottom:24px;right:24px;width:420px;max-width:calc(100vw - 48px);height:600px;max-height:calc(100vh - 100px);background:var(--panel);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 24px 60px rgba(0,0,0,0.6);display:none;flex-direction:column;z-index:9100;overflow:hidden}
+.chat-panel.open{display:flex;animation:slideUpFade 0.25s ease}
+@keyframes slideUpFade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.chat-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--bg-2)}
+.ch-brand{display:flex;align-items:center;gap:12px}
+.ch-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;box-shadow:0 0 8px var(--accent)}
+.ch-title{font-family:'Fraunces',serif;font-size:15px;color:var(--ink);font-style:italic}
+.ch-mode{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-top:2px;font-family:'JetBrains Mono',monospace}
+.ch-mode.online{color:var(--accent)}
+.ch-close{background:transparent;border:none;color:var(--ink-3);font-size:20px;cursor:pointer;padding:0 4px;line-height:1;transition:color 0.2s}
+.ch-close:hover{color:var(--ink)}
+
+.chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px}
+.chat-body::-webkit-scrollbar{width:6px}
+.chat-body::-webkit-scrollbar-track{background:transparent}
+.chat-body::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+
+.chat-welcome{display:flex;flex-direction:column;gap:14px}
+.cw-title{font-family:'Fraunces',serif;font-size:18px;color:var(--ink);font-style:italic}
+.cw-hint{font-size:11px;color:var(--ink-3);letter-spacing:0.05em;font-family:'JetBrains Mono',monospace}
+.cw-suggestions{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.cw-suggest{background:var(--bg-2);border:1px solid var(--line);color:var(--ink-2);padding:10px 14px;text-align:left;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit;transition:all 0.15s}
+.cw-suggest:hover{border-color:var(--accent);color:var(--ink);background:var(--panel-2)}
+
+.chat-msg{display:flex;gap:10px;font-size:13px;line-height:1.55}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-msg .cm-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.chat-msg.user .cm-avatar{background:var(--accent);color:#000}
+.chat-msg.bot .cm-avatar{background:var(--bg-2);color:var(--accent);border:1px solid var(--line-2)}
+.chat-msg .cm-bubble{background:var(--bg-2);padding:10px 14px;border-radius:10px;max-width:calc(100% - 40px);word-wrap:break-word;color:var(--ink);font-family:'Inter Tight',sans-serif}
+.chat-msg.user .cm-bubble{background:rgba(212,255,58,0.08);border:1px solid rgba(212,255,58,0.2)}
+.chat-msg .cm-bubble strong{color:var(--accent);font-weight:600}
+.chat-msg .cm-bubble code{font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;color:var(--accent)}
+.chat-msg .cm-bubble table{font-size:11px;font-family:'JetBrains Mono',monospace;border-collapse:collapse;margin-top:8px;width:100%}
+.chat-msg .cm-bubble th, .chat-msg .cm-bubble td{padding:4px 8px;border-bottom:1px solid var(--line);text-align:left}
+.chat-msg .cm-bubble th{color:var(--ink-3);font-weight:600;font-size:9px;letter-spacing:0.1em;text-transform:uppercase}
+.chat-msg .cm-bubble td.num{text-align:right;color:var(--accent)}
+
+.chat-msg.loading .cm-bubble{display:flex;gap:4px;padding:14px}
+.chat-msg.loading .cm-bubble span{width:6px;height:6px;border-radius:50%;background:var(--ink-3);animation:loadingDot 1.4s infinite}
+.chat-msg.loading .cm-bubble span:nth-child(2){animation-delay:0.2s}
+.chat-msg.loading .cm-bubble span:nth-child(3){animation-delay:0.4s}
+@keyframes loadingDot{0%,60%,100%{opacity:0.3}30%{opacity:1}}
+
+.chat-input-row{display:flex;gap:8px;padding:14px;border-top:1px solid var(--line);background:var(--bg-2)}
+.chat-input{flex:1;background:var(--bg);border:1px solid var(--line-2);color:var(--ink);padding:10px 14px;font-size:13px;font-family:inherit;border-radius:6px;outline:none;transition:border-color 0.2s}
+.chat-input:focus{border-color:var(--accent)}
+.chat-send{background:var(--accent);color:#000;border:none;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;border-radius:6px;font-family:inherit;transition:background 0.2s}
+.chat-send:hover{background:#bfeb2a}
+.chat-send:disabled{opacity:0.4;cursor:not-allowed}
+
+.chat-footer{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-top:1px solid var(--line);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3);font-family:'JetBrains Mono',monospace;font-weight:600}
+.chat-config{background:transparent;border:none;color:var(--ink-3);cursor:pointer;font-size:13px;padding:2px 4px;transition:color 0.2s}
+.chat-config:hover{color:var(--accent)}
+
+/* AI CONFIG MODAL */
+.ai-config-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:9999;display:none;align-items:center;justify-content:center;padding:24px}
+.ai-config-overlay.open{display:flex}
+.ai-config-box{background:var(--panel);border:1px solid var(--line-2);border-radius:8px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto}
+.acb-header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
+.acb-title{font-family:'Fraunces',serif;font-size:17px;color:var(--ink);font-style:italic}
+.acb-title em{color:var(--ink-3);font-size:13px}
+.acb-close{background:transparent;border:none;color:var(--ink-3);font-size:22px;cursor:pointer;line-height:1}
+.acb-body{padding:20px 22px}
+.acb-text{font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:12px}
+.acb-warn{font-size:11px;color:var(--warn);background:rgba(244,197,66,0.08);border:1px solid rgba(244,197,66,0.25);padding:10px 12px;border-radius:5px;line-height:1.5;margin-bottom:18px}
+.acb-warn strong{color:var(--warn)}
+.acb-label{font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3);font-weight:700;display:block;margin:14px 0 6px}
+.acb-input{width:100%;background:var(--bg-2);border:1px solid var(--line-2);color:var(--ink);padding:10px 12px;font-size:12px;font-family:'JetBrains Mono',monospace;border-radius:5px;outline:none}
+.acb-input:focus{border-color:var(--accent)}
+.acb-actions{display:flex;gap:8px;margin-top:20px;justify-content:flex-end}
+.acb-clear{background:transparent;border:1px solid var(--line-2);color:var(--ink-2);padding:9px 14px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:5px;font-family:inherit}
+.acb-clear:hover{color:var(--bad);border-color:var(--bad)}
+.acb-save{background:var(--accent);color:#000;border:none;padding:9px 18px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:5px;font-family:inherit}
+.acb-save:hover{background:#bfeb2a}
 </style>
 </head>
 <body>
+
+<!-- LOGIN OVERLAY -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-brand">
+      <div class="login-mark"></div>
+      <div class="login-title">CEO Review · <em>Pan-India</em><br>FY 2026–27</div>
+    </div>
+    <div class="login-subtitle">Sign in to access the dashboard</div>
+    <form class="login-form" id="loginForm" autocomplete="off">
+      <label class="login-label">Password</label>
+      <input type="password" class="login-input" id="loginPassword" placeholder="Enter password" autofocus required>
+      <div class="login-error" id="loginError"></div>
+      <button type="submit" class="login-submit">Sign In</button>
+    </form>
+    <div class="login-footer">Confidential · Taggd · For authorized users only</div>
+  </div>
+</div>
+
+<!-- USER BADGE (shown post-login) -->
+<div class="user-badge" id="userBadge" style="display:none">
+  <span class="ub-icon">●</span>
+  <span class="ub-name" id="userBadgeName">—</span>
+  <span class="ub-divider">|</span>
+  <button class="ub-logout" id="userBadgeLogout" type="button">Sign Out</button>
+</div>
 
 <header class="masthead">
   <div class="masthead-row">
@@ -785,6 +923,122 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
 </footer>
 
 <script>
+// ============ AUTHENTICATION ============
+// Client-side password gate. This is a UX guard, not true security — anyone with
+// browser DevTools could inspect the data. For genuine confidentiality, host on
+// a server with proper backend auth.
+const USERS = {
+  'taggd@admin2026':   { name: 'Admin',       leader: null,          isAdmin: true  },
+  'anjli@taggd':       { name: 'Anjli',       leader: 'Anjli',       isAdmin: false },
+  'manish@taggd':      { name: 'Manish',      leader: 'Manish',      isAdmin: false },
+  'bapi@taggd':        { name: 'Bapi',        leader: 'Bapi',        isAdmin: false },
+  'ashish@taggd':      { name: 'Ashish',      leader: 'Ashish',      isAdmin: false },
+  'exclusive@taggd':   { name: 'Exclusive',   leader: 'Exclusive',   isAdmin: false },
+  'mahak@taggd':       { name: 'Mahak',       leader: 'Mahak',       isAdmin: false },
+  'middleeast@taggd':  { name: 'Middle East', leader: 'Middle East', isAdmin: false },
+  'subu@taggd':        { name: 'Subu',        leader: 'Subu',        isAdmin: false },
+};
+
+let CURRENT_USER = null;
+
+function authenticate(password){
+  const user = USERS[password];
+  if(!user) return null;
+  return user;
+}
+
+function applyUserAccess(user){
+  CURRENT_USER = user;
+  // Hide login, show dashboard
+  document.getElementById('loginOverlay').classList.add('hidden');
+  document.body.style.overflow = '';
+  // Show user badge
+  const badge = document.getElementById('userBadge');
+  document.getElementById('userBadgeName').textContent = user.name;
+  badge.style.display = 'flex';
+  // For leader-specific users: lock the Leader filter to their leader and hide other leaders
+  if(!user.isAdmin && user.leader){
+    currentLeader = user.leader;
+  }
+  // Save session so refresh doesn't kick them out (within the same tab)
+  try { sessionStorage.setItem('taggd_user', JSON.stringify(user)); } catch(e){}
+}
+
+function signOut(){
+  try { sessionStorage.removeItem('taggd_user'); } catch(e){}
+  location.reload();
+}
+
+// Check session on load
+function checkSession(){
+  try {
+    const saved = sessionStorage.getItem('taggd_user');
+    if(saved){
+      const user = JSON.parse(saved);
+      // Validate the saved user is still in USERS (in case password list changed)
+      const stillValid = Object.values(USERS).find(u => u.name === user.name);
+      if(stillValid){
+        return stillValid;
+      }
+    }
+  } catch(e){}
+  return null;
+}
+
+// Wire login form
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('loginForm');
+  const pwInput = document.getElementById('loginPassword');
+  const errorEl = document.getElementById('loginError');
+  const logoutBtn = document.getElementById('userBadgeLogout');
+  
+  if(form){
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pw = pwInput.value.trim();
+      const user = authenticate(pw);
+      if(!user){
+        errorEl.textContent = 'Incorrect password. Please try again.';
+        pwInput.value = '';
+        pwInput.focus();
+        return;
+      }
+      errorEl.textContent = '';
+      applyUserAccess(user);
+      // For leader users, the Leader filter needs to update its locked selection
+      if(typeof refreshDashboard === 'function' && !user.isAdmin){
+        // Rebuild leader dropdown so it shows only the locked leader, then refresh
+        if(typeof buildRegionTabs === 'function') buildRegionTabs();
+        if(typeof buildLeaderTabs === 'function') buildLeaderTabs();
+        if(typeof buildPHDropdown === 'function') buildPHDropdown();
+        if(typeof buildAccountDropdown === 'function') buildAccountDropdown();
+        refreshDashboard();
+      }
+    });
+  }
+  
+  if(logoutBtn){
+    logoutBtn.addEventListener('click', signOut);
+  }
+  
+  // Lock body scroll while login is showing
+  document.body.style.overflow = 'hidden';
+  
+  // Auto-login from session
+  const savedUser = checkSession();
+  if(savedUser){
+    applyUserAccess(savedUser);
+  }
+});
+
+// Patches for leader-locking — applied to existing builder once they're defined.
+// We hook into buildLeaderTabs to enforce restriction for non-admin users.
+function getLeaderRestriction(){
+  return (CURRENT_USER && !CURRENT_USER.isAdmin) ? CURRENT_USER.leader : null;
+}
+
+// ============ END AUTHENTICATION ============
+
 const RAW = [{"name":"Honeywell","leader":"Bapi","ph":"Bapi","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":475.0,"fcRev":475.0,"cost":289.89,"cm":0.6103,"ppc":107620.38,"hc":172.0,"rph":0,"taggd":0,"revPro":4.35},"Q2":{"budRev":440.0,"fcRev":440.0,"cost":236.38,"cm":0.5372,"ppc":118382.42,"hc":172.0,"rph":0,"taggd":0,"revPro":4.03},"Q3":{"budRev":330.0,"fcRev":330.0,"cost":126.38,"cm":0.383,"ppc":118382.42,"hc":172.0,"rph":0,"taggd":0,"revPro":3.02},"Q4":{"budRev":480.0,"fcRev":480.0,"cost":276.38,"cm":0.5758,"ppc":118382.42,"hc":172.0,"rph":0,"taggd":0,"revPro":4.4},"Total":{"budRev":1725.0,"fcRev":1725.0,"cost":929.04,"cm":0.5386,"ppc":115691.91,"hc":172.0,"rph":0,"revPro":0,"taggd":3.95},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":120.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Green","top10":"Yes"}},{"name":"Honeywell Leadership","leader":"Bapi","ph":"Parul Jain","accountStatus":"Old Account","region":"Bapi","isLeadership":true,"Q1":{"budRev":5.0,"fcRev":9.88,"cost":-0.53,"cm":-0.0535,"ppc":173405.52,"hc":6.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":5.0,"fcRev":5.0,"cost":-6.44,"cm":-1.289,"ppc":190746.08,"hc":6.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":5.0,"fcRev":5.0,"cost":-6.44,"cm":-1.289,"ppc":190746.08,"hc":6.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":5.0,"fcRev":5.0,"cost":-6.44,"cm":-1.289,"ppc":190746.08,"hc":6.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":20.0,"fcRev":24.88,"cost":-19.86,"cm":-0.7985,"ppc":186410.94,"hc":6.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":2.26,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Green","top10":"No"}},{"name":"Pfizer","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":24.0,"fcRev":22.8,"cost":10.68,"cm":0.4686,"ppc":100967.53,"hc":12.0,"rph":0,"taggd":0,"revPro":2.53},"Q2":{"budRev":24.0,"fcRev":24.0,"cost":10.67,"cm":0.4447,"ppc":111064.28,"hc":12.0,"rph":0,"taggd":0,"revPro":2.67},"Q3":{"budRev":15.0,"fcRev":15.0,"cost":1.67,"cm":0.1115,"ppc":111064.28,"hc":12.0,"rph":0,"taggd":0,"revPro":1.67},"Q4":{"budRev":17.0,"fcRev":17.0,"cost":3.67,"cm":0.216,"ppc":111064.28,"hc":12.0,"rph":0,"taggd":0,"revPro":1.89},"Total":{"budRev":80.0,"fcRev":78.8,"cost":26.7,"cm":0.3388,"ppc":108540.09,"hc":12.0,"rph":0,"revPro":0,"taggd":2.19},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":5.31,"issueStatus":"No","redAccount":"No","slaStatus":"Amber","top10":"No"}},{"name":"SKF India","leader":"Anjli","ph":"Archana Tarika","accountStatus":"Old Account","region":"North","isLeadership":false,"Q1":{"budRev":56.0,"fcRev":41.46,"cost":-10.51,"cm":-0.2536,"ppc":110580.55,"hc":47.0,"rph":0,"taggd":0,"revPro":1.34},"Q2":{"budRev":63.0,"fcRev":63.0,"cost":5.83,"cm":0.0925,"ppc":121638.6,"hc":47.0,"rph":0,"taggd":0,"revPro":2.04},"Q3":{"budRev":57.0,"fcRev":57.0,"cost":-0.17,"cm":-0.003,"ppc":121638.6,"hc":47.0,"rph":0,"taggd":0,"revPro":1.84},"Q4":{"budRev":46.0,"fcRev":46.0,"cost":-11.17,"cm":-0.2428,"ppc":121638.6,"hc":47.0,"rph":0,"taggd":0,"revPro":1.49},"Total":{"budRev":222.0,"fcRev":207.46,"cost":-16.02,"cm":-0.0772,"ppc":118874.09,"hc":47.0,"rph":0,"revPro":0,"taggd":1.68},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":50.67,"cyUnbilled":26.5,"collOverdue":6.9,"issueStatus":"No","redAccount":"No","slaStatus":"Green","top10":"No"}},{"name":"Siemens (Advatnta & GBS)","leader":"Manish","ph":"Kunal","accountStatus":"Old Account","region":"South","isLeadership":false,"Q1":{"budRev":28.5,"fcRev":19.12,"cost":0.88,"cm":0.0462,"ppc":101311.4,"hc":18.0,"rph":0,"taggd":0,"revPro":1.27},"Q2":{"budRev":27.4,"fcRev":27.4,"cost":7.34,"cm":0.2679,"ppc":111442.54,"hc":18.0,"rph":0,"taggd":0,"revPro":1.83},"Q3":{"budRev":31.5,"fcRev":31.5,"cost":11.44,"cm":0.3632,"ppc":111442.54,"hc":18.0,"rph":0,"taggd":0,"revPro":2.1},"Q4":{"budRev":35.7,"fcRev":35.7,"cost":15.64,"cm":0.4381,"ppc":111442.54,"hc":18.0,"rph":0,"taggd":0,"revPro":2.38},"Total":{"budRev":123.1,"fcRev":113.72,"cost":35.3,"cm":0.3104,"ppc":108909.76,"hc":18.0,"rph":0,"revPro":0,"taggd":1.9},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":53.1,"cyUnbilled":6.12,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Green","top10":"No"}},{"name":"Siemens Energy","leader":"Anjli","ph":"Archana Tarika","accountStatus":"Old Account","region":"North","isLeadership":false,"Q1":{"budRev":33.0,"fcRev":29.15,"cost":4.41,"cm":0.1512,"ppc":101000.0,"hc":24.5,"rph":0,"taggd":0,"revPro":1.21},"Q2":{"budRev":34.5,"fcRev":34.5,"cost":7.28,"cm":0.211,"ppc":111100.0,"hc":24.5,"rph":0,"taggd":0,"revPro":1.44},"Q3":{"budRev":30.6,"fcRev":30.6,"cost":3.38,"cm":0.1105,"ppc":111100.0,"hc":24.5,"rph":0,"taggd":0,"revPro":1.28},"Q4":{"budRev":36.6,"fcRev":36.6,"cost":9.38,"cm":0.2563,"ppc":111100.0,"hc":24.5,"rph":0,"taggd":0,"revPro":1.53},"Total":{"budRev":134.7,"fcRev":130.85,"cost":24.45,"cm":0.1868,"ppc":108575.0,"hc":24.5,"rph":0,"revPro":0,"taggd":1.36},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":13.05,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Amber","top10":"No"}},{"name":"Pidilite","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":51.75,"fcRev":25.08,"cost":-0.58,"cm":-0.023,"ppc":80180.64,"hc":32.0,"rph":0,"taggd":0,"revPro":0.84},"Q2":{"budRev":45.5,"fcRev":45.5,"cost":17.28,"cm":0.3797,"ppc":88198.71,"hc":32.0,"rph":0,"taggd":0,"revPro":1.52},"Q3":{"budRev":48.0,"fcRev":48.0,"cost":19.78,"cm":0.412,"ppc":88198.71,"hc":32.0,"rph":0,"taggd":0,"revPro":1.6},"Q4":{"budRev":50.5,"fcRev":50.5,"cost":22.28,"cm":0.4411,"ppc":88198.71,"hc":32.0,"rph":0,"taggd":0,"revPro":1.68},"Total":{"budRev":195.75,"fcRev":169.08,"cost":58.75,"cm":0.3475,"ppc":86194.19,"hc":32.0,"rph":0,"revPro":0,"taggd":1.41},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":4.58,"collOverdue":25.54,"issueStatus":"No","redAccount":"No","slaStatus":"Not Reported","top10":"No"}},{"name":"Vertiv","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":10.0,"fcRev":9.77,"cost":3.45,"cm":0.3527,"ppc":105409.99,"hc":6.0,"rph":0,"taggd":0,"revPro":1.63},"Q2":{"budRev":12.0,"fcRev":12.0,"cost":5.04,"cm":0.4202,"ppc":115950.99,"hc":6.0,"rph":0,"taggd":0,"revPro":2.0},"Q3":{"budRev":13.0,"fcRev":13.0,"cost":6.04,"cm":0.4648,"ppc":115950.99,"hc":6.0,"rph":0,"taggd":0,"revPro":2.17},"Q4":{"budRev":13.0,"fcRev":13.0,"cost":6.04,"cm":0.4648,"ppc":115950.99,"hc":6.0,"rph":0,"taggd":0,"revPro":2.17},"Total":{"budRev":48.0,"fcRev":47.77,"cost":20.57,"cm":0.4307,"ppc":113315.74,"hc":6.0,"rph":0,"revPro":0,"taggd":1.99},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0.31,"issueStatus":"No","redAccount":"No","slaStatus":"Not Reported","top10":"No"}},{"name":"Birla Paints","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":51.5,"fcRev":40.74,"cost":16.68,"cm":0.4095,"ppc":92529.71,"hc":26.0,"rph":0,"taggd":0,"revPro":1.81},"Q2":{"budRev":47.2,"fcRev":47.2,"cost":20.74,"cm":0.4393,"ppc":101782.68,"hc":26.0,"rph":0,"taggd":0,"revPro":2.1},"Q3":{"budRev":49.8,"fcRev":49.8,"cost":23.34,"cm":0.4686,"ppc":101782.68,"hc":26.0,"rph":0,"taggd":0,"revPro":2.21},"Q4":{"budRev":46.6,"fcRev":46.6,"cost":20.14,"cm":0.4321,"ppc":101782.68,"hc":26.0,"rph":0,"taggd":0,"revPro":2.07},"Total":{"budRev":195.1,"fcRev":184.34,"cost":80.89,"cm":0.4388,"ppc":99469.44,"hc":26.0,"rph":0,"revPro":0,"taggd":2.05},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":13.71,"cyUnbilled":12.79,"collOverdue":0,"issueStatus":"No","redAccount":"Yes","slaStatus":"Amber","top10":"No"}},{"name":"HPE","leader":"Mahak","ph":"Mahak","accountStatus":"Old Account","region":"Mahak","isLeadership":false,"Q1":{"budRev":329.3,"fcRev":417.0,"cost":181.46,"cm":0.4351,"ppc":139210.96,"hc":169.2,"rph":0,"taggd":0,"revPro":3.82},"Q2":{"budRev":392.27,"fcRev":392.27,"cost":133.17,"cm":0.3395,"ppc":153132.05,"hc":169.2,"rph":0,"taggd":0,"revPro":3.59},"Q3":{"budRev":329.57,"fcRev":329.57,"cost":70.47,"cm":0.2138,"ppc":153132.05,"hc":169.2,"rph":0,"taggd":0,"revPro":3.02},"Q4":{"budRev":392.0,"fcRev":392.0,"cost":132.91,"cm":0.339,"ppc":153132.05,"hc":169.2,"rph":0,"taggd":0,"revPro":3.59},"Total":{"budRev":1443.15,"fcRev":1530.85,"cost":518.0,"cm":0.3384,"ppc":149651.78,"hc":169.2,"rph":0,"revPro":0,"taggd":3.5},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Amber","top10":"Yes"}},{"name":"Isuzu","leader":"Manish","ph":"Satya","accountStatus":"Old Account","region":"South","isLeadership":false,"Q1":{"budRev":27.0,"fcRev":14.79,"cost":5.58,"cm":0.3773,"ppc":127874.85,"hc":7.2,"rph":0,"taggd":0,"revPro":4.93},"Q2":{"budRev":27.0,"fcRev":27.0,"cost":16.87,"cm":0.6249,"ppc":140662.33,"hc":7.2,"rph":0,"taggd":0,"revPro":9.0},"Q3":{"budRev":20.0,"fcRev":20.0,"cost":9.87,"cm":0.4936,"ppc":140662.33,"hc":7.2,"rph":0,"taggd":0,"revPro":6.67},"Q4":{"budRev":23.0,"fcRev":23.0,"cost":12.87,"cm":0.5597,"ppc":140662.33,"hc":7.2,"rph":0,"taggd":0,"revPro":7.67},"Total":{"budRev":97.0,"fcRev":84.78,"cost":45.19,"cm":0.5331,"ppc":137465.46,"hc":7.2,"rph":0,"revPro":0,"taggd":7.07},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":3.79,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Amber","top10":"No"}},{"name":"Mahindra Holidays","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":0.0,"fcRev":0.9,"cost":-2.75,"cm":-3.05,"ppc":90000.0,"hc":4.05,"rph":0,"taggd":0,"revPro":0.1},"Q2":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":0.0,"fcRev":0.9,"cost":-2.75,"cm":-3.05,"ppc":22500.0,"hc":1.01,"rph":0,"revPro":0,"taggd":0.03},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":8.1,"cyUnbilled":0.9,"collOverdue":0,"issueStatus":"No","redAccount":"Yes","slaStatus":"Not Reported","top10":"No"}},{"name":"Mahindra Holidays Leadership","leader":"Anjli","ph":"Parul Jain","accountStatus":"Old Account","region":"West","isLeadership":true,"Q1":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"BITS","leader":"Manish","ph":"Krishna","accountStatus":"Old Account","region":"South","isLeadership":false,"Q1":{"budRev":12.0,"fcRev":13.59,"cost":4.3,"cm":0.3162,"ppc":84493.66,"hc":11.0,"rph":0,"taggd":0,"revPro":2.27},"Q2":{"budRev":13.0,"fcRev":13.0,"cost":2.78,"cm":0.2136,"ppc":92943.02,"hc":11.0,"rph":0,"taggd":0,"revPro":2.17},"Q3":{"budRev":11.0,"fcRev":11.0,"cost":0.78,"cm":0.0706,"ppc":92943.02,"hc":11.0,"rph":0,"taggd":0,"revPro":1.83},"Q4":{"budRev":12.0,"fcRev":12.0,"cost":1.78,"cm":0.148,"ppc":92943.02,"hc":11.0,"rph":0,"taggd":0,"revPro":2.0},"Total":{"budRev":48.0,"fcRev":49.59,"cost":9.63,"cm":0.1941,"ppc":90830.68,"hc":11.0,"rph":0,"revPro":0,"taggd":2.07},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0.13,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Green","top10":"No"}},{"name":"M&M","leader":"Anjli","ph":"Saurabh","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":305.0,"fcRev":364.61,"cost":137.39,"cm":0.3768,"ppc":93889.94,"hc":242.0,"rph":0,"taggd":0,"revPro":1.84},"Q2":{"budRev":330.0,"fcRev":330.0,"cost":80.06,"cm":0.2426,"ppc":103278.93,"hc":242.0,"rph":0,"taggd":0,"revPro":1.67},"Q3":{"budRev":360.0,"fcRev":360.0,"cost":110.06,"cm":0.3057,"ppc":103278.93,"hc":242.0,"rph":0,"taggd":0,"revPro":1.82},"Q4":{"budRev":390.0,"fcRev":390.0,"cost":140.06,"cm":0.3591,"ppc":103278.93,"hc":242.0,"rph":0,"taggd":0,"revPro":1.97},"Total":{"budRev":1385.0,"fcRev":1444.61,"cost":467.59,"cm":0.3237,"ppc":100931.68,"hc":242.0,"rph":0,"revPro":0,"taggd":1.82},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":171.1,"issueStatus":"No","redAccount":"No","slaStatus":"Red","top10":"Yes"}},{"name":"M&M Leadership","leader":"Anjli","ph":"Parul Jain","accountStatus":"Old Account","region":"West","isLeadership":true,"Q1":{"budRev":70.0,"fcRev":76.19,"cost":37.0,"cm":0.4856,"ppc":130642.86,"hc":30.0,"rph":0,"taggd":0,"revPro":8.47},"Q2":{"budRev":70.0,"fcRev":70.0,"cost":26.89,"cm":0.3841,"ppc":143707.15,"hc":30.0,"rph":0,"taggd":0,"revPro":7.78},"Q3":{"budRev":40.0,"fcRev":40.0,"cost":-3.11,"cm":-0.0778,"ppc":143707.15,"hc":30.0,"rph":0,"taggd":0,"revPro":4.44},"Q4":{"budRev":70.0,"fcRev":70.0,"cost":26.89,"cm":0.3841,"ppc":143707.15,"hc":30.0,"rph":0,"taggd":0,"revPro":7.78},"Total":{"budRev":250.0,"fcRev":256.19,"cost":87.66,"cm":0.3422,"ppc":140441.08,"hc":30.0,"rph":0,"revPro":0,"taggd":7.12},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Wipro","leader":"Subu","ph":"Subu","accountStatus":"Old Account","region":"Subu","isLeadership":false,"Q1":{"budRev":150.0,"fcRev":85.99,"cost":49.82,"cm":0.5794,"ppc":98824.57,"hc":36.6,"rph":0,"taggd":0,"revPro":2.87},"Q2":{"budRev":150.0,"fcRev":150.0,"cost":110.21,"cm":0.7348,"ppc":108707.03,"hc":36.6,"rph":0,"taggd":0,"revPro":5.0},"Q3":{"budRev":100.0,"fcRev":100.0,"cost":60.21,"cm":0.6021,"ppc":108707.03,"hc":36.6,"rph":0,"taggd":0,"revPro":3.33},"Q4":{"budRev":150.0,"fcRev":150.0,"cost":110.21,"cm":0.7348,"ppc":108707.03,"hc":36.6,"rph":0,"taggd":0,"revPro":5.0},"Total":{"budRev":550.0,"fcRev":485.99,"cost":330.46,"cm":0.68,"ppc":106236.41,"hc":36.6,"rph":0,"revPro":0,"taggd":4.05},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":39.99,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Green","top10":"Yes"}},{"name":"DP World","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":20.11,"fcRev":26.27,"cost":14.88,"cm":0.5663,"ppc":87648.63,"hc":13.0,"rph":0,"taggd":0,"revPro":2.5},"Q2":{"budRev":24.87,"fcRev":24.87,"cost":12.33,"cm":0.4959,"ppc":96413.49,"hc":13.0,"rph":0,"taggd":0,"revPro":2.37},"Q3":{"budRev":25.63,"fcRev":25.63,"cost":13.1,"cm":0.5111,"ppc":96413.49,"hc":13.0,"rph":0,"taggd":0,"revPro":2.44},"Q4":{"budRev":23.71,"fcRev":23.71,"cost":11.18,"cm":0.4714,"ppc":96413.49,"hc":13.0,"rph":0,"taggd":0,"revPro":2.26},"Total":{"budRev":94.32,"fcRev":100.48,"cost":51.49,"cm":0.5124,"ppc":94222.28,"hc":13.0,"rph":0,"revPro":0,"taggd":2.39},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":6.99,"collOverdue":33.0,"issueStatus":"No","redAccount":"No","slaStatus":"Amber","top10":"No"}},{"name":"AMNS","leader":"Anjli","ph":"Alifia","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":90.0,"fcRev":109.24,"cost":10.61,"cm":0.0972,"ppc":92605.58,"hc":106.5,"rph":0,"taggd":0,"revPro":1.06},"Q2":{"budRev":90.0,"fcRev":90.0,"cost":-18.49,"cm":-0.2054,"ppc":101866.14,"hc":106.5,"rph":0,"taggd":0,"revPro":0.87},"Q3":{"budRev":90.0,"fcRev":90.0,"cost":-18.49,"cm":-0.2054,"ppc":101866.14,"hc":106.5,"rph":0,"taggd":0,"revPro":0.87},"Q4":{"budRev":90.0,"fcRev":90.0,"cost":-18.49,"cm":-0.2054,"ppc":101866.14,"hc":106.5,"rph":0,"taggd":0,"revPro":0.87},"Total":{"budRev":360.0,"fcRev":379.24,"cost":-44.85,"cm":-0.1183,"ppc":99551.0,"hc":106.5,"rph":0,"revPro":0,"taggd":0.92},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":69.17,"cyUnbilled":26.28,"collOverdue":0,"issueStatus":"No","redAccount":"Yes","slaStatus":"Red","top10":"Yes"}},{"name":"AMNS Leadership","leader":"Anjli","ph":"Alifia","accountStatus":"Old Account","region":"West","isLeadership":true,"Q1":{"budRev":15.0,"fcRev":4.75,"cost":2.68,"cm":0.5655,"ppc":103085.48,"hc":2.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":23.0,"fcRev":23.0,"cost":20.73,"cm":0.9014,"ppc":113394.03,"hc":2.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":26.0,"fcRev":26.0,"cost":23.73,"cm":0.9128,"ppc":113394.03,"hc":2.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":26.0,"fcRev":26.0,"cost":23.73,"cm":0.9128,"ppc":113394.03,"hc":2.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":90.0,"fcRev":79.75,"cost":70.88,"cm":0.8888,"ppc":110816.9,"hc":2.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Red","top10":"No"}},{"name":"Tata Electronics","leader":"Manish","ph":"Satya","accountStatus":"Old Account","region":"South","isLeadership":false,"Q1":{"budRev":4.0,"fcRev":2.68,"cost":-0.62,"cm":-0.2309,"ppc":110145.72,"hc":3.0,"rph":0,"taggd":0,"revPro":0.89},"Q2":{"budRev":4.0,"fcRev":4.0,"cost":0.37,"cm":0.0913,"ppc":121160.29,"hc":3.0,"rph":0,"taggd":0,"revPro":1.33},"Q3":{"budRev":0.0,"fcRev":0.0,"cost":-3.63,"cm":0.0,"ppc":121160.29,"hc":3.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0.0,"fcRev":0.0,"cost":-3.63,"cm":0.0,"ppc":121160.29,"hc":3.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":8.0,"fcRev":6.68,"cost":-7.52,"cm":-1.1256,"ppc":118406.65,"hc":3.0,"rph":0,"revPro":0,"taggd":0.56},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":6.23,"cyUnbilled":0.68,"collOverdue":16.93,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Jindal Stainless","leader":"Anjli","ph":"Archana Tarika","accountStatus":"Old Account","region":"North","isLeadership":false,"Q1":{"budRev":32.0,"fcRev":12.71,"cost":-2.42,"cm":-0.19,"ppc":100838.36,"hc":15.0,"rph":0,"taggd":0,"revPro":1.37},"Q2":{"budRev":29.0,"fcRev":29.0,"cost":12.36,"cm":0.4263,"ppc":110922.19,"hc":15.0,"rph":0,"taggd":0,"revPro":3.12},"Q3":{"budRev":29.0,"fcRev":29.0,"cost":12.36,"cm":0.4263,"ppc":110922.19,"hc":15.0,"rph":0,"taggd":0,"revPro":3.12},"Q4":{"budRev":30.0,"fcRev":30.0,"cost":13.36,"cm":0.4454,"ppc":110922.19,"hc":15.0,"rph":0,"taggd":0,"revPro":3.23},"Total":{"budRev":120.0,"fcRev":100.71,"cost":35.67,"cm":0.3542,"ppc":108401.23,"hc":15.0,"rph":0,"revPro":0,"taggd":2.71},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":106.43,"issueStatus":"No","redAccount":"No","slaStatus":"Green","top10":"No"}},{"name":"Schaeffler","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":21.0,"fcRev":29.52,"cost":14.53,"cm":0.4924,"ppc":99879.71,"hc":15.0,"rph":0,"taggd":0,"revPro":2.46},"Q2":{"budRev":22.0,"fcRev":22.0,"cost":5.52,"cm":0.2509,"ppc":109867.69,"hc":15.0,"rph":0,"taggd":0,"revPro":1.83},"Q3":{"budRev":22.0,"fcRev":22.0,"cost":5.52,"cm":0.2509,"ppc":109867.69,"hc":15.0,"rph":0,"taggd":0,"revPro":1.83},"Q4":{"budRev":21.5,"fcRev":21.5,"cost":5.02,"cm":0.2335,"ppc":109867.69,"hc":15.0,"rph":0,"taggd":0,"revPro":1.79},"Total":{"budRev":86.5,"fcRev":95.02,"cost":30.59,"cm":0.322,"ppc":107370.69,"hc":15.0,"rph":0,"revPro":0,"taggd":1.98},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":19.53,"issueStatus":"No","redAccount":"Yes","slaStatus":"Not Reported","top10":"No"}},{"name":"Royal Enfield","leader":"Manish","ph":"Manish","accountStatus":"Old Account","region":"South","isLeadership":false,"Q1":{"budRev":48.0,"fcRev":48.22,"cost":-17.37,"cm":-0.3603,"ppc":117138.77,"hc":56.0,"rph":0,"taggd":0,"revPro":0.95},"Q2":{"budRev":48.0,"fcRev":48.0,"cost":-24.16,"cm":-0.5033,"ppc":128852.65,"hc":56.0,"rph":0,"taggd":0,"revPro":0.94},"Q3":{"budRev":48.0,"fcRev":48.0,"cost":-24.16,"cm":-0.5033,"ppc":128852.65,"hc":56.0,"rph":0,"taggd":0,"revPro":0.94},"Q4":{"budRev":48.0,"fcRev":48.0,"cost":-24.16,"cm":-0.5033,"ppc":128852.65,"hc":56.0,"rph":0,"taggd":0,"revPro":0.94},"Total":{"budRev":192.0,"fcRev":192.22,"cost":-89.85,"cm":-0.4674,"ppc":125924.18,"hc":56.0,"rph":0,"revPro":0,"taggd":0.94},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":24.22,"collOverdue":59.54,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Royal Enfield Leadership","leader":"Manish","ph":"Parul Jain","accountStatus":"Old Account","region":"South","isLeadership":true,"Q1":{"budRev":18.0,"fcRev":0.0,"cost":-1.3,"cm":0.0,"ppc":130317.52,"hc":1.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":4.0,"fcRev":4.0,"cost":2.57,"cm":0.6416,"ppc":143349.28,"hc":1.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":2.0,"fcRev":2.0,"cost":0.57,"cm":0.2833,"ppc":143349.28,"hc":1.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":1.0,"fcRev":1.0,"cost":-0.43,"cm":-0.4335,"ppc":143349.28,"hc":1.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":25.0,"fcRev":7.0,"cost":1.4,"cm":0.1995,"ppc":140091.34,"hc":1.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"SBI Card","leader":"Anjli","ph":"Archana Tarika","accountStatus":"Old Account","region":"North","isLeadership":false,"Q1":{"budRev":33.0,"fcRev":33.29,"cost":-0.02,"cm":-0.0007,"ppc":83282.01,"hc":40.0,"rph":0,"taggd":0,"revPro":0.98},"Q2":{"budRev":50.0,"fcRev":50.0,"cost":13.36,"cm":0.2671,"ppc":91610.21,"hc":40.0,"rph":0,"taggd":0,"revPro":1.47},"Q3":{"budRev":58.0,"fcRev":58.0,"cost":21.36,"cm":0.3682,"ppc":91610.21,"hc":40.0,"rph":0,"taggd":0,"revPro":1.71},"Q4":{"budRev":38.0,"fcRev":38.0,"cost":1.36,"cm":0.0357,"ppc":91610.21,"hc":40.0,"rph":0,"taggd":0,"revPro":1.12},"Total":{"budRev":179.0,"fcRev":179.29,"cost":36.04,"cm":0.201,"ppc":89528.16,"hc":40.0,"rph":0,"revPro":0,"taggd":1.32},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"Yes","slaStatus":"Green","top10":"No"}},{"name":"Hyundai Motor","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":12.0,"fcRev":18.85,"cost":-0.42,"cm":-0.0222,"ppc":91755.34,"hc":21.0,"rph":0,"taggd":0,"revPro":1.05},"Q2":{"budRev":16.0,"fcRev":16.0,"cost":-5.2,"cm":-0.3247,"ppc":100930.87,"hc":21.0,"rph":0,"taggd":0,"revPro":0.89},"Q3":{"budRev":16.0,"fcRev":16.0,"cost":-5.2,"cm":-0.3247,"ppc":100930.87,"hc":21.0,"rph":0,"taggd":0,"revPro":0.89},"Q4":{"budRev":16.0,"fcRev":16.0,"cost":-5.2,"cm":-0.3247,"ppc":100930.87,"hc":21.0,"rph":0,"taggd":0,"revPro":0.89},"Total":{"budRev":60.0,"fcRev":66.85,"cost":-16.0,"cm":-0.2394,"ppc":98636.99,"hc":21.0,"rph":0,"revPro":0,"taggd":0.93},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":5.49,"collOverdue":19.92,"issueStatus":"No","redAccount":"No","slaStatus":"Not Reported","top10":"No"}},{"name":"Hyundai Motor Leadership","leader":"Anjli","ph":"Parul Jain","accountStatus":"Old Account","region":"West","isLeadership":true,"Q1":{"budRev":3.0,"fcRev":1.8,"cost":1.8,"cm":1.0,"ppc":110000.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":3.0,"fcRev":3.0,"cost":3.0,"cm":1.0,"ppc":121000.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":2.0,"fcRev":2.0,"cost":2.0,"cm":1.0,"ppc":133100.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":2.0,"fcRev":2.0,"cost":2.0,"cm":1.0,"ppc":146410.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":10.0,"fcRev":8.8,"cost":8.8,"cm":1.0,"ppc":127627.5,"hc":0.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Maruti Suzuki(MSIL)","leader":"Anjli","ph":"Archana Tarika","accountStatus":"Old Account","region":"North","isLeadership":false,"Q1":{"budRev":100.0,"fcRev":69.0,"cost":-7.81,"cm":-0.1132,"ppc":92547.06,"hc":83.0,"rph":0,"taggd":0,"revPro":0.97},"Q2":{"budRev":127.0,"fcRev":127.0,"cost":42.5,"cm":0.3347,"ppc":101801.77,"hc":83.0,"rph":0,"taggd":0,"revPro":1.79},"Q3":{"budRev":133.0,"fcRev":133.0,"cost":48.5,"cm":0.3647,"ppc":101801.77,"hc":83.0,"rph":0,"taggd":0,"revPro":1.87},"Q4":{"budRev":120.0,"fcRev":120.0,"cost":35.5,"cm":0.2959,"ppc":101801.77,"hc":83.0,"rph":0,"taggd":0,"revPro":1.69},"Total":{"budRev":480.0,"fcRev":449.0,"cost":118.7,"cm":0.2644,"ppc":99488.09,"hc":83.0,"rph":0,"revPro":0,"taggd":1.58},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":26.5,"collOverdue":0,"issueStatus":"No","redAccount":"Yes","slaStatus":"Red","top10":"Yes"}},{"name":"Tata Consumer","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":62.73,"fcRev":82.3,"cost":44.48,"cm":0.5405,"ppc":87949.12,"hc":43.0,"rph":0,"taggd":0,"revPro":2.11},"Q2":{"budRev":63.39,"fcRev":63.39,"cost":21.79,"cm":0.3437,"ppc":96744.03,"hc":43.0,"rph":0,"taggd":0,"revPro":1.63},"Q3":{"budRev":59.1,"fcRev":59.1,"cost":17.5,"cm":0.2961,"ppc":96744.03,"hc":43.0,"rph":0,"taggd":0,"revPro":1.52},"Q4":{"budRev":60.75,"fcRev":60.75,"cost":19.15,"cm":0.3152,"ppc":96744.03,"hc":43.0,"rph":0,"taggd":0,"revPro":1.56},"Total":{"budRev":245.97,"fcRev":265.54,"cost":102.92,"cm":0.3876,"ppc":94545.3,"hc":43.0,"rph":0,"revPro":0,"taggd":1.7},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":16.75,"cyUnbilled":30.8,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Amber","top10":"No"}},{"name":"Tata Play","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":3.5,"fcRev":0.0,"cost":-3.67,"cm":0.0,"ppc":122240.75,"hc":3.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":3.5,"fcRev":3.5,"cost":-0.53,"cm":-0.1526,"ppc":134464.83,"hc":3.0,"rph":0,"taggd":0,"revPro":1.17},"Q3":{"budRev":3.5,"fcRev":3.5,"cost":-0.53,"cm":-0.1526,"ppc":134464.83,"hc":3.0,"rph":0,"taggd":0,"revPro":1.17},"Q4":{"budRev":3.0,"fcRev":3.0,"cost":-1.03,"cm":-0.3446,"ppc":134464.83,"hc":3.0,"rph":0,"taggd":0,"revPro":1.0},"Total":{"budRev":13.5,"fcRev":10.0,"cost":-5.77,"cm":-0.5769,"ppc":131408.81,"hc":3.0,"rph":0,"revPro":0,"taggd":0.83},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":4.17,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Mahindra Finance","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Subros Ltd","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":8.6,"fcRev":7.67,"cost":1.01,"cm":0.1311,"ppc":95201.33,"hc":7.0,"rph":0,"taggd":0,"revPro":1.22},"Q2":{"budRev":9.1,"fcRev":9.1,"cost":1.77,"cm":0.1945,"ppc":104721.46,"hc":7.0,"rph":0,"taggd":0,"revPro":1.44},"Q3":{"budRev":11.0,"fcRev":11.0,"cost":3.67,"cm":0.3336,"ppc":104721.46,"hc":7.0,"rph":0,"taggd":0,"revPro":1.75},"Q4":{"budRev":12.4,"fcRev":12.4,"cost":5.07,"cm":0.4088,"ppc":104721.46,"hc":7.0,"rph":0,"taggd":0,"revPro":1.97},"Total":{"budRev":41.1,"fcRev":40.17,"cost":11.51,"cm":0.2866,"ppc":102341.42,"hc":7.0,"rph":0,"revPro":0,"taggd":1.59},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"Yes","slaStatus":"Red","top10":"No"}},{"name":"Atomberg Technologies","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":23.61,"fcRev":19.67,"cost":6.49,"cm":0.33,"ppc":82348.64,"hc":16.0,"rph":0,"taggd":0,"revPro":1.64},"Q2":{"budRev":24.71,"fcRev":24.71,"cost":10.22,"cm":0.4136,"ppc":90583.51,"hc":16.0,"rph":0,"taggd":0,"revPro":2.06},"Q3":{"budRev":25.78,"fcRev":25.78,"cost":11.29,"cm":0.4378,"ppc":90583.51,"hc":16.0,"rph":0,"taggd":0,"revPro":2.15},"Q4":{"budRev":26.21,"fcRev":26.21,"cost":11.72,"cm":0.4471,"ppc":90583.51,"hc":16.0,"rph":0,"taggd":0,"revPro":2.18},"Total":{"budRev":100.32,"fcRev":96.38,"cost":39.72,"cm":0.4121,"ppc":88524.79,"hc":16.0,"rph":0,"revPro":0,"taggd":2.01},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":3.13,"cyUnbilled":3.61,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Red","top10":"No"}},{"name":"Ambuja Cement","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":112.0,"fcRev":83.29,"cost":-31.86,"cm":-0.3826,"ppc":94388.83,"hc":122.0,"rph":0,"taggd":0,"revPro":1.63},"Q2":{"budRev":99.0,"fcRev":99.0,"cost":-27.67,"cm":-0.2795,"ppc":103827.71,"hc":122.0,"rph":0,"taggd":0,"revPro":1.94},"Q3":{"budRev":104.0,"fcRev":104.0,"cost":-22.67,"cm":-0.218,"ppc":103827.71,"hc":122.0,"rph":0,"taggd":0,"revPro":2.04},"Q4":{"budRev":111.0,"fcRev":111.0,"cost":-15.67,"cm":-0.1412,"ppc":103827.71,"hc":122.0,"rph":0,"taggd":0,"revPro":2.18},"Total":{"budRev":426.0,"fcRev":397.29,"cost":-97.87,"cm":-0.2464,"ppc":101467.99,"hc":122.0,"rph":0,"revPro":0,"taggd":1.95},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":37.19,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Amber","top10":"Yes"}},{"name":"Ashok Leyland","leader":"Manish","ph":"Krishna","accountStatus":"Old Account","region":"South","isLeadership":false,"Q1":{"budRev":46.0,"fcRev":46.0,"cost":10.78,"cm":0.2344,"ppc":100619.43,"hc":35.0,"rph":0,"taggd":0,"revPro":2.19},"Q2":{"budRev":64.0,"fcRev":64.0,"cost":25.26,"cm":0.3947,"ppc":110681.38,"hc":35.0,"rph":0,"taggd":0,"revPro":3.05},"Q3":{"budRev":60.0,"fcRev":60.0,"cost":21.26,"cm":0.3544,"ppc":110681.38,"hc":35.0,"rph":0,"taggd":0,"revPro":2.86},"Q4":{"budRev":62.0,"fcRev":62.0,"cost":23.26,"cm":0.3752,"ppc":110681.38,"hc":35.0,"rph":0,"taggd":0,"revPro":2.95},"Total":{"budRev":232.0,"fcRev":232.0,"cost":80.57,"cm":0.3473,"ppc":108165.89,"hc":35.0,"rph":0,"revPro":0,"taggd":2.76},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Not Reported","top10":"No"}},{"name":"Bridgestone","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":15.5,"fcRev":15.62,"cost":7.2,"cm":0.4613,"ppc":93473.03,"hc":9.0,"rph":0,"taggd":0,"revPro":2.6},"Q2":{"budRev":18.0,"fcRev":18.0,"cost":8.75,"cm":0.4859,"ppc":102820.34,"hc":9.0,"rph":0,"taggd":0,"revPro":3.0},"Q3":{"budRev":17.0,"fcRev":17.0,"cost":7.75,"cm":0.4557,"ppc":102820.34,"hc":9.0,"rph":0,"taggd":0,"revPro":2.83},"Q4":{"budRev":15.0,"fcRev":15.0,"cost":5.75,"cm":0.3831,"ppc":102820.34,"hc":9.0,"rph":0,"taggd":0,"revPro":2.5},"Total":{"budRev":65.5,"fcRev":65.62,"cost":29.44,"cm":0.4487,"ppc":100483.51,"hc":9.0,"rph":0,"revPro":0,"taggd":2.73},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Not Reported","top10":"No"}},{"name":"Sterling Tools","leader":"Anjli","ph":"Archana Tarika","accountStatus":"Old Account","region":"North","isLeadership":false,"Q1":{"budRev":12.0,"fcRev":21.46,"cost":9.11,"cm":0.4247,"ppc":102889.4,"hc":12.0,"rph":0,"taggd":0,"revPro":2.31},"Q2":{"budRev":16.0,"fcRev":16.0,"cost":2.42,"cm":0.1512,"ppc":113178.34,"hc":12.0,"rph":0,"taggd":0,"revPro":1.72},"Q3":{"budRev":15.0,"fcRev":15.0,"cost":1.42,"cm":0.0946,"ppc":113178.34,"hc":12.0,"rph":0,"taggd":0,"revPro":1.61},"Q4":{"budRev":15.0,"fcRev":15.0,"cost":1.42,"cm":0.0946,"ppc":113178.34,"hc":12.0,"rph":0,"taggd":0,"revPro":1.61},"Total":{"budRev":58.0,"fcRev":67.46,"cost":14.37,"cm":0.213,"ppc":110606.11,"hc":12.0,"rph":0,"revPro":0,"taggd":1.81},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":16.78,"issueStatus":"No","redAccount":"Yes","slaStatus":"Greed","top10":"No"}},{"name":"Sterling Tools Leadership","leader":"Anjli","ph":"Parul Jain","accountStatus":"Old Account","region":"West","isLeadership":true,"Q1":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Pernod Ricard","leader":"Anjli","ph":"Archana Tarika","accountStatus":"Old Account","region":"North","isLeadership":false,"Q1":{"budRev":28.5,"fcRev":28.33,"cost":11.95,"cm":0.4219,"ppc":109174.83,"hc":15.0,"rph":0,"taggd":0,"revPro":2.95},"Q2":{"budRev":28.5,"fcRev":28.5,"cost":10.49,"cm":0.3679,"ppc":120092.31,"hc":15.0,"rph":0,"taggd":0,"revPro":2.97},"Q3":{"budRev":33.0,"fcRev":33.0,"cost":14.99,"cm":0.4541,"ppc":120092.31,"hc":15.0,"rph":0,"taggd":0,"revPro":3.44},"Q4":{"budRev":15.0,"fcRev":15.0,"cost":-3.01,"cm":-0.2009,"ppc":120092.31,"hc":15.0,"rph":0,"taggd":0,"revPro":1.56},"Total":{"budRev":105.0,"fcRev":104.83,"cost":34.41,"cm":0.3283,"ppc":117362.94,"hc":15.0,"rph":0,"revPro":0,"taggd":2.73},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":4.22,"cyUnbilled":10.17,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Green","top10":"No"}},{"name":"Nagarjuna Leadership","leader":"Manish","ph":"Parul Jain","accountStatus":"Old Account","region":"South","isLeadership":true,"Q1":{"budRev":0.0,"fcRev":1.0,"cost":0.1,"cm":0.1,"ppc":90000.0,"hc":1.0,"rph":0,"taggd":0,"revPro":0.33},"Q2":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":0.0,"fcRev":1.0,"cost":0.1,"cm":0.1,"ppc":22500.0,"hc":0.25,"rph":0,"revPro":0,"taggd":0.08},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"ABB","leader":"Manish","ph":"Satya","accountStatus":"Old Account","region":"South","isLeadership":false,"Q1":{"budRev":20.0,"fcRev":19.86,"cost":4.3,"cm":0.2166,"ppc":112725.33,"hc":13.8,"rph":0,"taggd":0,"revPro":2.21},"Q2":{"budRev":20.0,"fcRev":20.0,"cost":2.89,"cm":0.1444,"ppc":123997.86,"hc":13.8,"rph":0,"taggd":0,"revPro":2.22},"Q3":{"budRev":12.0,"fcRev":12.0,"cost":-5.11,"cm":-0.426,"ppc":123997.86,"hc":13.8,"rph":0,"taggd":0,"revPro":1.33},"Q4":{"budRev":15.0,"fcRev":15.0,"cost":-2.11,"cm":-0.1408,"ppc":123997.86,"hc":13.8,"rph":0,"taggd":0,"revPro":1.67},"Total":{"budRev":67.0,"fcRev":66.86,"cost":-0.03,"cm":-0.0005,"ppc":121179.73,"hc":13.8,"rph":0,"revPro":0,"taggd":1.86},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":13.08,"cyUnbilled":2.9,"collOverdue":8.53,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Siemens Healthnier","leader":"Manish","ph":"Lekhana","accountStatus":"Old Account","region":"South","isLeadership":false,"Q1":{"budRev":33.58,"fcRev":26.14,"cost":12.26,"cm":0.4691,"ppc":115651.33,"hc":12.0,"rph":0,"taggd":0,"revPro":2.9},"Q2":{"budRev":43.3,"fcRev":43.3,"cost":28.03,"cm":0.6474,"ppc":127216.46,"hc":12.0,"rph":0,"taggd":0,"revPro":4.81},"Q3":{"budRev":43.3,"fcRev":43.3,"cost":28.03,"cm":0.6474,"ppc":127216.46,"hc":12.0,"rph":0,"taggd":0,"revPro":4.81},"Q4":{"budRev":43.3,"fcRev":43.3,"cost":28.03,"cm":0.6474,"ppc":127216.46,"hc":12.0,"rph":0,"taggd":0,"revPro":4.81},"Total":{"budRev":163.47,"fcRev":156.03,"cost":96.35,"cm":0.6175,"ppc":124325.18,"hc":12.0,"rph":0,"revPro":0,"taggd":4.33},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":19.7,"cyUnbilled":7.97,"collOverdue":0,"issueStatus":"No","redAccount":"Yes","slaStatus":"","top10":"No"}},{"name":"LEAP India","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":19.1,"fcRev":25.45,"cost":11.21,"cm":0.4404,"ppc":74953.15,"hc":19.0,"rph":0,"taggd":0,"revPro":1.7},"Q2":{"budRev":20.4,"fcRev":20.4,"cost":4.73,"cm":0.2321,"ppc":82448.46,"hc":19.0,"rph":0,"taggd":0,"revPro":1.36},"Q3":{"budRev":21.65,"fcRev":21.65,"cost":5.98,"cm":0.2764,"ppc":82448.46,"hc":19.0,"rph":0,"taggd":0,"revPro":1.44},"Q4":{"budRev":20.1,"fcRev":20.1,"cost":4.43,"cm":0.2206,"ppc":82448.46,"hc":19.0,"rph":0,"taggd":0,"revPro":1.34},"Total":{"budRev":81.25,"fcRev":87.6,"cost":26.36,"cm":0.301,"ppc":80574.63,"hc":19.0,"rph":0,"revPro":0,"taggd":1.46},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":10.65,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"Not Reported","top10":"No"}},{"name":"UniCharm","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"Old Account","region":"West","isLeadership":false,"Q1":{"budRev":12.0,"fcRev":10.28,"cost":2.67,"cm":0.2596,"ppc":108677.96,"hc":7.0,"rph":0,"taggd":0,"revPro":1.71},"Q2":{"budRev":12.0,"fcRev":12.0,"cost":3.63,"cm":0.3026,"ppc":119545.75,"hc":7.0,"rph":0,"taggd":0,"revPro":2.0},"Q3":{"budRev":12.0,"fcRev":12.0,"cost":3.63,"cm":0.3026,"ppc":119545.75,"hc":7.0,"rph":0,"taggd":0,"revPro":2.0},"Q4":{"budRev":12.0,"fcRev":12.0,"cost":3.63,"cm":0.3026,"ppc":119545.75,"hc":7.0,"rph":0,"taggd":0,"revPro":2.0},"Total":{"budRev":48.0,"fcRev":46.28,"cost":13.56,"cm":0.2931,"ppc":116828.81,"hc":7.0,"rph":0,"revPro":0,"taggd":1.93},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Optum","leader":"Ashish","ph":"Ashish","accountStatus":"Old Account","region":"Ashish","isLeadership":false,"Q1":{"budRev":137.5,"fcRev":157.0,"cost":79.42,"cm":0.5058,"ppc":104841.14,"hc":74.0,"rph":0,"taggd":0,"revPro":2.75},"Q2":{"budRev":137.5,"fcRev":137.5,"cost":52.16,"cm":0.3793,"ppc":115325.26,"hc":74.0,"rph":0,"taggd":0,"revPro":2.41},"Q3":{"budRev":137.5,"fcRev":137.5,"cost":52.16,"cm":0.3793,"ppc":115325.26,"hc":74.0,"rph":0,"taggd":0,"revPro":2.41},"Q4":{"budRev":137.5,"fcRev":137.5,"cost":52.16,"cm":0.3793,"ppc":115325.26,"hc":74.0,"rph":0,"taggd":0,"revPro":2.41},"Total":{"budRev":550.0,"fcRev":569.5,"cost":235.9,"cm":0.4142,"ppc":112704.23,"hc":74.0,"rph":0,"revPro":0,"taggd":2.5},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":4.22,"cyUnbilled":50.0,"collOverdue":12.18,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"Yes"}},{"name":"Saint Gobain","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"New Account","region":"West","isLeadership":false,"Q1":{"budRev":81.63,"fcRev":72.0,"cost":14.43,"cm":0.2004,"ppc":101000.0,"hc":57.0,"rph":0,"taggd":0,"revPro":1.5},"Q2":{"budRev":115.69,"fcRev":115.69,"cost":52.36,"cm":0.4526,"ppc":111100.0,"hc":57.0,"rph":0,"taggd":0,"revPro":2.41},"Q3":{"budRev":122.79,"fcRev":122.79,"cost":59.46,"cm":0.4843,"ppc":111100.0,"hc":57.0,"rph":0,"taggd":0,"revPro":2.56},"Q4":{"budRev":122.79,"fcRev":122.79,"cost":59.46,"cm":0.4843,"ppc":111100.0,"hc":57.0,"rph":0,"taggd":0,"revPro":2.56},"Total":{"budRev":442.9,"fcRev":433.27,"cost":185.72,"cm":0.4286,"ppc":108575.0,"hc":57.0,"rph":0,"revPro":0,"taggd":2.26},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":17.0,"collOverdue":2.65,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"Yes"}},{"name":"Metglass","leader":"Anjli","ph":"Archana Tarika","accountStatus":"New Account","region":"North","isLeadership":false,"Q1":{"budRev":21.75,"fcRev":21.6,"cost":17.56,"cm":0.813,"ppc":101000.0,"hc":4.0,"rph":0,"taggd":0,"revPro":7.2},"Q2":{"budRev":24.9,"fcRev":24.9,"cost":20.46,"cm":0.8215,"ppc":111100.0,"hc":4.0,"rph":0,"taggd":0,"revPro":8.3},"Q3":{"budRev":23.7,"fcRev":23.7,"cost":19.26,"cm":0.8125,"ppc":111100.0,"hc":4.0,"rph":0,"taggd":0,"revPro":7.9},"Q4":{"budRev":21.75,"fcRev":21.75,"cost":17.31,"cm":0.7957,"ppc":111100.0,"hc":4.0,"rph":0,"taggd":0,"revPro":7.25},"Total":{"budRev":92.1,"fcRev":91.95,"cost":74.58,"cm":0.8111,"ppc":108575.0,"hc":4.0,"rph":0,"revPro":0,"taggd":7.66},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"NeoSoft","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"New Account","region":"West","isLeadership":false,"Q1":{"budRev":57.0,"fcRev":0.0,"cost":-19.04,"cm":0.0,"ppc":105755.21,"hc":18.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":109.5,"fcRev":109.5,"cost":88.56,"cm":0.8088,"ppc":116330.73,"hc":18.0,"rph":0,"taggd":0,"revPro":9.12},"Q3":{"budRev":139.5,"fcRev":139.5,"cost":118.56,"cm":0.8499,"ppc":116330.73,"hc":18.0,"rph":0,"taggd":0,"revPro":11.62},"Q4":{"budRev":139.5,"fcRev":139.5,"cost":118.56,"cm":0.8499,"ppc":116330.73,"hc":18.0,"rph":0,"taggd":0,"revPro":11.62},"Total":{"budRev":445.5,"fcRev":388.5,"cost":306.65,"cm":0.7893,"ppc":113686.85,"hc":18.0,"rph":0,"revPro":0,"taggd":8.09},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"Yes"}},{"name":"Vertiv Leadership","leader":"Anjli","ph":"Parul Jain","accountStatus":"Old Account","region":"West","isLeadership":true,"Q1":{"budRev":8.0,"fcRev":6.0,"cost":-2.36,"cm":-0.3941,"ppc":139414.16,"hc":6.0,"rph":0,"taggd":0,"revPro":2.0},"Q2":{"budRev":6.0,"fcRev":6.0,"cost":-3.2,"cm":-0.5336,"ppc":153355.58,"hc":6.0,"rph":0,"taggd":0,"revPro":2.0},"Q3":{"budRev":9.0,"fcRev":9.0,"cost":-0.2,"cm":-0.0224,"ppc":153355.58,"hc":6.0,"rph":0,"taggd":0,"revPro":3.0},"Q4":{"budRev":7.0,"fcRev":7.0,"cost":-2.2,"cm":-0.3145,"ppc":153355.58,"hc":6.0,"rph":0,"taggd":0,"revPro":2.33},"Total":{"budRev":30.0,"fcRev":28.0,"cost":-7.97,"cm":-0.2846,"ppc":149870.22,"hc":6.0,"rph":0,"revPro":0,"taggd":2.33},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Subros Leadership","leader":"Anjli","ph":"Parul Jain","accountStatus":"Old Account","region":"West","isLeadership":true,"Q1":{"budRev":1.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":121584.75,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":1.0,"fcRev":1.0,"cost":1.0,"cm":1.0,"ppc":133743.23,"hc":0.0,"rph":0,"taggd":0,"revPro":0.16},"Q3":{"budRev":1.0,"fcRev":1.0,"cost":1.0,"cm":1.0,"ppc":133743.23,"hc":0.0,"rph":0,"taggd":0,"revPro":0.16},"Q4":{"budRev":2.0,"fcRev":2.0,"cost":2.0,"cm":1.0,"ppc":133743.23,"hc":0.0,"rph":0,"taggd":0,"revPro":0.32},"Total":{"budRev":5.0,"fcRev":4.0,"cost":4.0,"cm":1.0,"ppc":130703.61,"hc":0.0,"rph":0,"revPro":0,"taggd":0.16},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Siemens Leadership","leader":"Manish","ph":"Parul Jain","accountStatus":"Old Account","region":"South","isLeadership":true,"Q1":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":0.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"CG Power","leader":"Anjli","ph":"Archana Tarika","accountStatus":"New Account","region":"North","isLeadership":false,"Q1":{"budRev":60.51,"fcRev":12.75,"cost":-19.73,"cm":-1.5472,"ppc":50745.72,"hc":64.0,"rph":0,"taggd":0,"revPro":0.21},"Q2":{"budRev":130.62,"fcRev":130.62,"cost":94.9,"cm":0.7265,"ppc":55820.3,"hc":64.0,"rph":0,"taggd":0,"revPro":2.16},"Q3":{"budRev":149.52,"fcRev":149.52,"cost":113.79,"cm":0.7611,"ppc":55820.3,"hc":64.0,"rph":0,"taggd":0,"revPro":2.47},"Q4":{"budRev":193.61,"fcRev":193.61,"cost":157.88,"cm":0.8155,"ppc":55820.3,"hc":64.0,"rph":0,"taggd":0,"revPro":3.19},"Total":{"budRev":534.26,"fcRev":486.5,"cost":346.84,"cm":0.7129,"ppc":54551.65,"hc":64.0,"rph":0,"revPro":0,"taggd":2.01},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"Yes"}},{"name":"Exclusive","leader":"Exclusive","ph":"Exclusive","accountStatus":"Old Account","region":"Exclusive","isLeadership":false,"Q1":{"budRev":36.66,"fcRev":3.77,"cost":1.35,"cm":0.3572,"ppc":101000.0,"hc":2.4,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":24.0,"fcRev":24.0,"cost":21.33,"cm":0.8889,"ppc":111100.0,"hc":2.4,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":40.0,"fcRev":40.0,"cost":37.33,"cm":0.9333,"ppc":111100.0,"hc":2.4,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":50.0,"fcRev":50.0,"cost":47.33,"cm":0.9467,"ppc":111100.0,"hc":2.4,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":150.66,"fcRev":117.77,"cost":107.35,"cm":0.9115,"ppc":108575.0,"hc":2.4,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":1.75,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Middle East","leader":"Middle East","ph":"Middle East","accountStatus":"Old Account","region":"Middle East","isLeadership":false,"Q1":{"budRev":17.41,"fcRev":0.0,"cost":-4.48,"cm":0.0,"ppc":448176.66,"hc":1.0,"rph":0,"taggd":0,"revPro":0.0},"Q2":{"budRev":64.0,"fcRev":64.0,"cost":59.07,"cm":0.923,"ppc":492994.33,"hc":1.0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":118.0,"fcRev":118.0,"cost":113.07,"cm":0.9582,"ppc":492994.33,"hc":1.0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":150.0,"fcRev":150.0,"cost":145.07,"cm":0.9671,"ppc":492994.33,"hc":1.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":349.41,"fcRev":332.0,"cost":312.73,"cm":0.942,"ppc":481789.91,"hc":1.0,"rph":0,"revPro":0,"taggd":0.0},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Reliance","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"New Account","region":"West","isLeadership":false,"Q1":{"budRev":0.0,"fcRev":4.0,"cost":0.85,"cm":0.2125,"ppc":90000.0,"hc":3.5,"rph":0,"taggd":0,"revPro":0.38},"Q2":{"budRev":0,"fcRev":0,"cost":0,"cm":0.0,"ppc":0,"hc":0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":0,"fcRev":0,"cost":0,"cm":0,"ppc":0,"hc":0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0,"fcRev":0,"cost":0.0,"cm":0.0,"ppc":99000.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":0.0,"fcRev":4.0,"cost":0.85,"cm":0.2125,"ppc":94500.0,"hc":1.75,"rph":0,"revPro":0,"taggd":0.1},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":0.0,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"Tata Power","leader":"Anjli","ph":"Sudha Pandey","accountStatus":"New Account","region":"West","isLeadership":false,"Q1":{"budRev":0.0,"fcRev":5.25,"cost":3.72,"cm":0.7086,"ppc":90000.0,"hc":1.7,"rph":0,"taggd":0,"revPro":1.25},"Q2":{"budRev":0,"fcRev":0,"cost":0,"cm":0.0,"ppc":0,"hc":0,"rph":0,"taggd":0,"revPro":0.0},"Q3":{"budRev":0,"fcRev":0,"cost":0,"cm":0,"ppc":0,"hc":0,"rph":0,"taggd":0,"revPro":0.0},"Q4":{"budRev":0,"fcRev":0,"cost":0.0,"cm":0.0,"ppc":99000.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0.0},"Total":{"budRev":0.0,"fcRev":5.25,"cost":3.72,"cm":0.7086,"ppc":94500.0,"hc":0.85,"rph":0,"revPro":0,"taggd":0.31},"gov":{"mgr":"Yes","phGov":"Yes","fnHead":"Yes","lyUnbilled":0,"cyUnbilled":1.75,"collOverdue":0,"issueStatus":"No","redAccount":"No","slaStatus":"","top10":"No"}},{"name":"New Sales","leader":"Nizar","ph":"Nizar","accountStatus":"New Account","region":"Nizar","isLeadership":false,"Q1":{"budRev":217.0,"fcRev":0.0,"cost":0.0,"cm":0.0,"ppc":0.0,"hc":0.0,"rph":0,"taggd":0,"revPro":0},"Q2":{"budRev":575.6,"fcRev":0,"cost":0,"cm":0,"ppc":0,"hc":0,"rph":0,"taggd":0,"revPro":0},"Q3":{"budRev":742.65,"fcRev":0,"cost":0,"cm":0,"ppc":0,"hc":0,"rph":0,"taggd":0,"revPro":0},"Q4":{"budRev":995.75,"fcRev":0,"cost":0,"cm":0,"ppc":0,"hc":0,"rph":0,"taggd":0,"revPro":0},"Total":{"budRev":2531.0,"fcRev":0.0,"cost":0,"cm":0,"ppc":0,"hc":0,"rph":0,"revPro":0,"taggd":0},"gov":{"mgr":"","phGov":"","fnHead":"","lyUnbilled":0,"cyUnbilled":0,"collOverdue":0,"issueStatus":"","redAccount":"","slaStatus":"","top10":""}}];
 
 // CEO Review data: each quarter has budRev (Budget) and fcRev (Forecast/Actual).
@@ -1993,6 +2247,26 @@ function buildLeaderTabs(){
   const { leaders, total } = getAvailableLeaders();
   const sel = document.getElementById('leaderSelect');
   if(!sel) return;
+  
+  // For non-admin users, lock to their own leader only
+  const lockedLeader = getLeaderRestriction();
+  if(lockedLeader){
+    // Filter the leaders list to only their leader
+    const myEntry = leaders.find(([n,_]) => n === lockedLeader);
+    const myCount = myEntry ? myEntry[1] : 0;
+    sel.innerHTML = `<option value="${lockedLeader}" selected>${lockedLeader} — ${myCount} ${myCount===1?'account':'accounts'}</option>`;
+    sel.disabled = true;
+    sel.title = `Restricted to ${lockedLeader}'s accounts only`;
+    const badge = document.getElementById('leaderCountBadge');
+    if(badge) badge.textContent = myCount;
+    // Make sure currentLeader matches locked value
+    currentLeader = lockedLeader;
+    return;
+  }
+  
+  // Admin path — full dropdown
+  sel.disabled = false;
+  sel.title = '';
   const opts = [`<option value="all" ${currentLeader==='all'?'selected':''}>All Leaders (${total} accounts)</option>`];
   leaders.forEach(([name,count]) => {
     opts.push(`<option value="${name}" ${currentLeader===name?'selected':''}>${name} — ${count} ${count===1?'account':'accounts'}</option>`);
@@ -2339,6 +2613,10 @@ function bindMultiSelectOutsideClicks(){
 }
 
 function applyRegionFilter(){
+  // Enforce leader lock for non-admin users — defensive belt-and-braces
+  const lockedLeader = getLeaderRestriction();
+  if(lockedLeader) currentLeader = lockedLeader;
+  
   // Apply region, leader, PH, account, and flag filters in sequence
   let filtered = currentRegion === 'all' ? RAW_ALL : RAW_ALL.filter(c => c.region === currentRegion);
   if(currentLeader !== 'all'){
@@ -2765,6 +3043,528 @@ document.getElementById('govSearchInput')?.addEventListener('input', e => {
   govSearchTerm = e.target.value;
   buildGovTable();
 });
+
+// ============ CHAT ASSISTANT ============
+const AI_CONFIG_KEY = 'taggd_ai_config';
+
+function getAIConfig(){
+  try {
+    const raw = localStorage.getItem(AI_CONFIG_KEY);
+    if(!raw) return { provider: '', apiKey: '' };
+    return JSON.parse(raw);
+  } catch(e){ return { provider: '', apiKey: '' }; }
+}
+
+function saveAIConfig(provider, apiKey){
+  try { localStorage.setItem(AI_CONFIG_KEY, JSON.stringify({ provider, apiKey })); } catch(e){}
+  updateChatMode();
+}
+
+function clearAIConfig(){
+  try { localStorage.removeItem(AI_CONFIG_KEY); } catch(e){}
+  updateChatMode();
+}
+
+function updateChatMode(){
+  const cfg = getAIConfig();
+  const modeEl = document.getElementById('chatMode');
+  const footerEl = document.getElementById('chatFooterText');
+  if(cfg.provider && cfg.apiKey){
+    const label = cfg.provider === 'anthropic' ? 'Claude' : 'ChatGPT';
+    modeEl.textContent = `Online · ${label}`;
+    modeEl.classList.add('online');
+    footerEl.textContent = `AI mode · ${label}`;
+  } else {
+    modeEl.textContent = 'Offline · pattern lookup';
+    modeEl.classList.remove('online');
+    footerEl.textContent = 'Offline mode · answers from loaded data';
+  }
+}
+
+// ============ Offline pattern matcher ============
+// Maps natural language questions to dashboard data lookups.
+function answerOffline(query){
+  const q = query.toLowerCase().trim();
+  
+  // Scope: respect user's leader restriction (auth)
+  const lockedLeader = (typeof getLeaderRestriction === 'function') ? getLeaderRestriction() : null;
+  const allAccounts = lockedLeader 
+    ? RAW_ALL.filter(c => (String(c.leader || '').trim() || 'Unassigned') === lockedLeader)
+    : RAW_ALL;
+  
+  // Helpers
+  const findAccount = (text) => {
+    return allAccounts.find(c => text.includes(c.name.toLowerCase())) ||
+           allAccounts.find(c => c.name.toLowerCase().split(' ').some(w => w.length > 3 && text.includes(w)));
+  };
+  const inrLakhs = (v) => '₹' + (v >= 100 ? (v/100).toFixed(2) + ' Cr' : v.toFixed(1) + ' L');
+  const pct = (v) => (v * 100).toFixed(1) + '%';
+  
+  // ---- INTENT: specific account lookup ----
+  const account = findAccount(q);
+  if(account){
+    // What's their CM% / cost ratio?
+    if(/cm|margin|cost ratio|profitability/.test(q)){
+      const t = account.Total;
+      return `<strong>${account.name}</strong> · CM%<br><table>
+        <tr><td>Q1</td><td class="num">${pct(account.Q1.cm)}</td></tr>
+        <tr><td>Q2</td><td class="num">${pct(account.Q2.cm)}</td></tr>
+        <tr><td>Q3</td><td class="num">${pct(account.Q3.cm)}</td></tr>
+        <tr><td>Q4</td><td class="num">${pct(account.Q4.cm)}</td></tr>
+        <tr><td><strong>Annual</strong></td><td class="num"><strong>${pct(t.cm)}</strong></td></tr>
+      </table><br><span style="font-size:11px;color:var(--ink-3)">Lower = better profitability</span>`;
+    }
+    // Revenue
+    if(/revenue|rev|sales|bud|forecast|budget/.test(q)){
+      const t = account.Total;
+      const ach = t.budRev ? (t.fcRev / t.budRev * 100) : 0;
+      return `<strong>${account.name}</strong> · Revenue<br><table>
+        <tr><td>Annual Budget</td><td class="num">${inrLakhs(t.budRev)}</td></tr>
+        <tr><td>Annual Forecast</td><td class="num">${inrLakhs(t.fcRev)}</td></tr>
+        <tr><td>Variance</td><td class="num">${inrLakhs(t.fcRev - t.budRev)}</td></tr>
+        <tr><td>Achievement</td><td class="num">${ach.toFixed(1)}%</td></tr>
+      </table>`;
+    }
+    // Headcount
+    if(/head|hc|people|count|team/.test(q)){
+      return `<strong>${account.name}</strong> has <strong>${Math.round(account.Total.hc)}</strong> headcount (annual avg).`;
+    }
+    // Default full snapshot
+    const t = account.Total;
+    return `<strong>${account.name}</strong> · Snapshot<br><table>
+      <tr><td>Leader</td><td>${account.leader || '—'}</td></tr>
+      <tr><td>Region</td><td>${account.region || '—'}</td></tr>
+      <tr><td>PH</td><td>${account.ph || '—'}</td></tr>
+      <tr><td>Annual Budget</td><td class="num">${inrLakhs(t.budRev)}</td></tr>
+      <tr><td>Annual Forecast</td><td class="num">${inrLakhs(t.fcRev)}</td></tr>
+      <tr><td>CM%</td><td class="num">${pct(t.cm)}</td></tr>
+      <tr><td>HC</td><td class="num">${Math.round(t.hc)}</td></tr>
+      <tr><td>Rev Pro</td><td class="num">${t.revPro?.toFixed(2) || account.Total.taggd?.toFixed(2) || '0.00'}</td></tr>
+      <tr><td>Red?</td><td>${account.gov?.redAccount === 'Yes' ? '🔴 Yes' : 'No'}</td></tr>
+      <tr><td>Top 10?</td><td>${account.gov?.top10 === 'Yes' ? '⭐ Yes' : 'No'}</td></tr>
+    </table>`;
+  }
+  
+  // ---- INTENT: top/bottom N ----
+  const topMatch = q.match(/top\s+(\d+)?\s*(by\s+)?(revenue|rev|cm|margin|hc|head|red|cost)?/);
+  if(topMatch || /top performer|best/.test(q)){
+    const n = parseInt(topMatch?.[1]) || 5;
+    let metric = 'budRev'; let label = 'Budget Revenue'; let fmt = inrLakhs;
+    if(/cm|margin/.test(q)){ metric = 'cm'; label = 'CM%'; fmt = pct; }
+    else if(/cost/.test(q)){ metric = 'cost'; label = 'Cost'; fmt = inrLakhs; }
+    else if(/hc|head|people/.test(q)){ metric = 'hc'; label = 'Headcount'; fmt = v => Math.round(v); }
+    else if(/forecast|achievement/.test(q)){ metric = 'fcRev'; label = 'Forecast Rev'; fmt = inrLakhs; }
+    
+    const ranked = [...allAccounts]
+      .filter(c => c.Total[metric] != null)
+      .sort((a,b) => (b.Total[metric] || 0) - (a.Total[metric] || 0))
+      .slice(0, n);
+    const rows = ranked.map((c,i) => `<tr><td>${i+1}. ${c.name}</td><td class="num">${fmt(c.Total[metric] || 0)}</td></tr>`).join('');
+    return `<strong>Top ${n} by ${label}</strong><br><table>${rows}</table>`;
+  }
+  
+  // ---- INTENT: red accounts list ----
+  if(/red|risk|risky|problem|concern/.test(q)){
+    const reds = allAccounts.filter(c => c.gov?.redAccount === 'Yes');
+    if(reds.length === 0) return `No accounts are currently flagged as Red${lockedLeader ? ' in your portfolio' : ''}.`;
+    const rows = reds.map(c => `<tr><td>${c.name}</td><td>${c.leader}</td><td class="num">${inrLakhs(c.Total.fcRev)}</td></tr>`).join('');
+    return `<strong>🔴 Red Accounts (${reds.length})</strong><br><table>
+      <tr><th>Account</th><th>Leader</th><th>Forecast</th></tr>${rows}</table>`;
+  }
+  
+  // ---- INTENT: Top 10 accounts ----
+  if(/top 10|top ten|key account|strategic/.test(q)){
+    const t10 = allAccounts.filter(c => c.gov?.top10 === 'Yes');
+    if(t10.length === 0) return `No Top 10 accounts in scope.`;
+    const rows = t10.map(c => `<tr><td>${c.name}</td><td class="num">${inrLakhs(c.Total.fcRev)}</td></tr>`).join('');
+    return `<strong>⭐ Top 10 Accounts (${t10.length})</strong><br><table>${rows}</table>`;
+  }
+  
+  // ---- INTENT: new accounts ----
+  if(/new account|new client|recently added/.test(q)){
+    const news = allAccounts.filter(c => (c.accountStatus || '').toLowerCase().includes('new'));
+    if(news.length === 0) return `No new accounts in scope.`;
+    const rows = news.map(c => `<tr><td>${c.name}</td><td>${c.leader}</td></tr>`).join('');
+    return `<strong>🟢 New Accounts (${news.length})</strong><br><table>${rows}</table>`;
+  }
+  
+  // ---- INTENT: leader performance ----
+  if(/leader|anjli|manish|bapi|ashish|exclusive|mahak|subu|middle east/.test(q) && !lockedLeader){
+    let targetLeader = null;
+    const leaders = ['Anjli','Manish','Bapi','Ashish','Exclusive','Mahak','Subu','Middle East'];
+    for(const l of leaders){ if(q.includes(l.toLowerCase())){ targetLeader = l; break; } }
+    if(targetLeader){
+      const accts = allAccounts.filter(c => c.leader === targetLeader);
+      if(accts.length === 0) return `No accounts found for ${targetLeader}.`;
+      const totalBud = accts.reduce((s,c) => s + (c.Total.budRev || 0), 0);
+      const totalFc = accts.reduce((s,c) => s + (c.Total.fcRev || 0), 0);
+      const totalCost = accts.reduce((s,c) => s + (c.Total.cost || 0), 0);
+      const cm = totalFc ? totalCost / totalFc : 0;
+      return `<strong>${targetLeader}'s Portfolio</strong><br><table>
+        <tr><td>Accounts</td><td class="num">${accts.length}</td></tr>
+        <tr><td>Annual Budget</td><td class="num">${inrLakhs(totalBud)}</td></tr>
+        <tr><td>Annual Forecast</td><td class="num">${inrLakhs(totalFc)}</td></tr>
+        <tr><td>Variance</td><td class="num">${inrLakhs(totalFc - totalBud)}</td></tr>
+        <tr><td>CM%</td><td class="num">${pct(cm)}</td></tr>
+        <tr><td>Achievement</td><td class="num">${totalBud ? (totalFc/totalBud*100).toFixed(1) : 0}%</td></tr>
+      </table>`;
+    }
+  }
+  
+  // ---- INTENT: quarter-specific ----
+  const qMatch = q.match(/q([1-4])/);
+  if(qMatch){
+    const qKey = 'Q' + qMatch[1];
+    const totalBud = allAccounts.reduce((s,c) => s + (c[qKey].budRev || 0), 0);
+    const totalFc = allAccounts.reduce((s,c) => s + (c[qKey].fcRev || 0), 0);
+    const totalCost = allAccounts.reduce((s,c) => s + (c[qKey].cost || 0), 0);
+    const totalHC = allAccounts.reduce((s,c) => s + (c[qKey].hc || 0), 0);
+    const cm = totalFc ? totalCost / totalFc : 0;
+    return `<strong>${qKey} Summary</strong><br><table>
+      <tr><td>Budget</td><td class="num">${inrLakhs(totalBud)}</td></tr>
+      <tr><td>Forecast</td><td class="num">${inrLakhs(totalFc)}</td></tr>
+      <tr><td>Variance</td><td class="num">${inrLakhs(totalFc - totalBud)}</td></tr>
+      <tr><td>CM%</td><td class="num">${pct(cm)}</td></tr>
+      <tr><td>HC</td><td class="num">${Math.round(totalHC)}</td></tr>
+    </table>`;
+  }
+  
+  // ---- INTENT: overall / annual summary ----
+  if(/summary|overview|annual|overall|how (are|is) we doing|performance|total/.test(q)){
+    const totalBud = allAccounts.reduce((s,c) => s + (c.Total.budRev || 0), 0);
+    const totalFc = allAccounts.reduce((s,c) => s + (c.Total.fcRev || 0), 0);
+    const totalCost = allAccounts.reduce((s,c) => s + (c.Total.cost || 0), 0);
+    const cm = totalFc ? totalCost / totalFc : 0;
+    const ach = totalBud ? (totalFc / totalBud * 100) : 0;
+    return `<strong>${lockedLeader ? lockedLeader + "'s Portfolio" : 'Annual Snapshot'}</strong><br><table>
+      <tr><td>Accounts</td><td class="num">${allAccounts.length}</td></tr>
+      <tr><td>Budget</td><td class="num">${inrLakhs(totalBud)}</td></tr>
+      <tr><td>Forecast</td><td class="num">${inrLakhs(totalFc)}</td></tr>
+      <tr><td>Variance</td><td class="num">${inrLakhs(totalFc - totalBud)} (${ach.toFixed(1)}%)</td></tr>
+      <tr><td>CM%</td><td class="num">${pct(cm)}</td></tr>
+    </table>`;
+  }
+  
+  // ---- INTENT: governance ----
+  if(/governance|unbilled|collection|sla|outstanding/.test(q)){
+    const ly = allAccounts.reduce((s,c) => s + (c.gov?.lyUnbilled || 0), 0);
+    const cy = allAccounts.reduce((s,c) => s + (c.gov?.cyUnbilled || 0), 0);
+    const coll = allAccounts.reduce((s,c) => s + (c.gov?.collOverdue || 0), 0);
+    return `<strong>Governance Snapshot</strong><br><table>
+      <tr><td>LY Unbilled</td><td class="num">${inrLakhs(ly)}</td></tr>
+      <tr><td>CY Unbilled</td><td class="num">${inrLakhs(cy)}</td></tr>
+      <tr><td>Collection >30d</td><td class="num">${inrLakhs(coll)}</td></tr>
+    </table>`;
+  }
+  
+  // ---- INTENT: help / unknown ----
+  return `I couldn't find an exact match for that. Try one of these patterns:<br><br>
+    • <em>"What's [account name]'s revenue?"</em><br>
+    • <em>"Top 5 by revenue"</em> or <em>"Top 10 accounts"</em><br>
+    • <em>"Red accounts"</em> or <em>"new accounts"</em><br>
+    • <em>"How is Anjli doing?"</em> (admin only)<br>
+    • <em>"Q3 summary"</em> or <em>"annual overview"</em><br>
+    • <em>"Governance"</em> for unbilled/collections<br><br>
+    For smarter freeform answers, configure an AI provider via the ⚙ icon.`;
+}
+
+// ============ AI-powered answer (online mode) ============
+async function answerOnline(query){
+  const cfg = getAIConfig();
+  if(!cfg.provider || !cfg.apiKey) return answerOffline(query);
+  
+  // Build compact context: scope-aware summary of data
+  const lockedLeader = (typeof getLeaderRestriction === 'function') ? getLeaderRestriction() : null;
+  const scope = lockedLeader 
+    ? RAW_ALL.filter(c => (String(c.leader || '').trim() || 'Unassigned') === lockedLeader)
+    : RAW_ALL;
+  const compact = scope.map(c => ({
+    name: c.name, leader: c.leader, region: c.region, ph: c.ph, status: c.accountStatus,
+    budget: c.Total.budRev, forecast: c.Total.fcRev, cm: c.Total.cm, hc: c.Total.hc,
+    revPro: c.Total.revPro, taggd: c.Total.taggd,
+    red: c.gov?.redAccount, top10: c.gov?.top10,
+    lyUnbilled: c.gov?.lyUnbilled, cyUnbilled: c.gov?.cyUnbilled, collOverdue: c.gov?.collOverdue,
+  }));
+  
+  const systemPrompt = `You are a dashboard assistant for Taggd's CEO Review (RPO firm). Answer questions about the data concisely. All revenue values are in Lakhs (₹L). CM% = Cost/Forecast Revenue (lower is better). Be direct, use bullet points or short tables. Don't invent data — only use what's provided.${lockedLeader ? ` Note: this user is scoped to ${lockedLeader}'s accounts only.` : ''}`;
+  const dataContext = `Data (${compact.length} accounts):\n${JSON.stringify(compact)}`;
+  
+  try {
+    let response, data, text;
+    if(cfg.provider === 'anthropic'){
+      response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-api-key': cfg.apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+          model: 'claude-3-5-haiku-20241022',
+          max_tokens: 1024,
+          system: systemPrompt + '\n\n' + dataContext,
+          messages: [{ role: 'user', content: query }]
+        })
+      });
+      data = await response.json();
+      if(data.error) throw new Error(data.error.message || 'API error');
+      text = data.content?.[0]?.text || 'No response';
+    } else if(cfg.provider === 'openai'){
+      response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'authorization': `Bearer ${cfg.apiKey}` },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: systemPrompt + '\n\n' + dataContext },
+            { role: 'user', content: query }
+          ],
+          max_tokens: 1024
+        })
+      });
+      data = await response.json();
+      if(data.error) throw new Error(data.error.message || 'API error');
+      text = data.choices?.[0]?.message?.content || 'No response';
+    }
+    // Minimal markdown → HTML
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+      .replace(/\n/g, '<br>');
+  } catch(err){
+    return `<strong>AI request failed:</strong> ${err.message}<br><br>Falling back to offline mode:<br><br>${answerOffline(query)}`;
+  }
+}
+
+// ============ Chat UI handlers ============
+function addChatMessage(text, sender='bot'){
+  const body = document.getElementById('chatBody');
+  // Remove welcome on first message
+  const welcome = body.querySelector('.chat-welcome');
+  if(welcome) welcome.remove();
+  
+  const msg = document.createElement('div');
+  msg.className = `chat-msg ${sender}`;
+  msg.innerHTML = `
+    <div class="cm-avatar">${sender === 'user' ? 'You' : '◆'}</div>
+    <div class="cm-bubble">${text}</div>
+  `;
+  body.appendChild(msg);
+  body.scrollTop = body.scrollHeight;
+  return msg;
+}
+
+function addLoadingMessage(){
+  const body = document.getElementById('chatBody');
+  const msg = document.createElement('div');
+  msg.className = 'chat-msg bot loading';
+  msg.innerHTML = `<div class="cm-avatar">◆</div><div class="cm-bubble"><span></span><span></span><span></span></div>`;
+  body.appendChild(msg);
+  body.scrollTop = body.scrollHeight;
+  return msg;
+}
+
+async function sendChat(text){
+  if(!text.trim()) return;
+  addChatMessage(text, 'user');
+  document.getElementById('chatInput').value = '';
+  document.getElementById('chatSend').disabled = true;
+  
+  const loading = addLoadingMessage();
+  
+  try {
+    const cfg = getAIConfig();
+    let answer;
+    if(cfg.provider && cfg.apiKey){
+      answer = await answerOnline(text);
+    } else {
+      // Small delay to make it feel responsive
+      await new Promise(r => setTimeout(r, 200));
+      answer = answerOffline(text);
+    }
+    loading.remove();
+    addChatMessage(answer, 'bot');
+  } catch(err){
+    loading.remove();
+    addChatMessage(`Error: ${err.message}`, 'bot');
+  } finally {
+    document.getElementById('chatSend').disabled = false;
+    document.getElementById('chatInput').focus();
+  }
+}
+
+function buildChatSuggestions(){
+  const lockedLeader = (typeof getLeaderRestriction === 'function') ? getLeaderRestriction() : null;
+  const suggestions = lockedLeader ? [
+    `How is ${lockedLeader} doing?`,
+    'Top 5 by revenue',
+    'Red accounts',
+    'Q3 summary',
+    'Governance',
+  ] : [
+    'Annual overview',
+    'Top 10 accounts',
+    'Red accounts',
+    'How is Anjli doing?',
+    'Q3 summary',
+  ];
+  const container = document.getElementById('chatSuggestions');
+  if(!container) return;
+  container.innerHTML = suggestions.map(s => `<button class="cw-suggest" data-q="${s.replace(/"/g,'&quot;')}">${s}</button>`).join('');
+  container.querySelectorAll('.cw-suggest').forEach(btn => {
+    btn.onclick = () => sendChat(btn.dataset.q);
+  });
+}
+
+// Wire up chat UI
+document.addEventListener('DOMContentLoaded', () => {
+  const trigger = document.getElementById('chatTrigger');
+  const panel = document.getElementById('chatPanel');
+  const closeBtn = document.getElementById('chatClose');
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('chatSend');
+  const configBtn = document.getElementById('chatConfig');
+  const configOverlay = document.getElementById('aiConfigOverlay');
+  const configClose = document.getElementById('aiConfigClose');
+  const configSave = document.getElementById('aiConfigSave');
+  const configClear = document.getElementById('aiConfigClear');
+  const aiProvider = document.getElementById('aiProvider');
+  const aiApiKey = document.getElementById('aiApiKey');
+  
+  if(!trigger) return;
+  
+  trigger.addEventListener('click', () => {
+    panel.classList.add('open');
+    trigger.classList.add('hidden');
+    buildChatSuggestions();
+    setTimeout(() => input.focus(), 100);
+  });
+  closeBtn.addEventListener('click', () => {
+    panel.classList.remove('open');
+    trigger.classList.remove('hidden');
+  });
+  sendBtn.addEventListener('click', () => sendChat(input.value));
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendChat(input.value);
+    }
+  });
+  
+  // Config modal
+  configBtn.addEventListener('click', () => {
+    const cfg = getAIConfig();
+    aiProvider.value = cfg.provider || '';
+    aiApiKey.value = cfg.apiKey || '';
+    configOverlay.classList.add('open');
+  });
+  configClose.addEventListener('click', () => configOverlay.classList.remove('open'));
+  configOverlay.addEventListener('click', (e) => {
+    if(e.target === configOverlay) configOverlay.classList.remove('open');
+  });
+  configSave.addEventListener('click', () => {
+    const provider = aiProvider.value.trim();
+    const apiKey = aiApiKey.value.trim();
+    if(provider && !apiKey){
+      alert('Please enter an API key, or switch back to Offline.');
+      return;
+    }
+    saveAIConfig(provider, apiKey);
+    configOverlay.classList.remove('open');
+  });
+  configClear.addEventListener('click', () => {
+    clearAIConfig();
+    aiProvider.value = '';
+    aiApiKey.value = '';
+    configOverlay.classList.remove('open');
+  });
+  
+  updateChatMode();
+});
+
+// Hide chat trigger when login overlay is showing (don't show chat before auth)
+function setChatVisibility(){
+  const trigger = document.getElementById('chatTrigger');
+  const panel = document.getElementById('chatPanel');
+  if(!trigger) return;
+  const loginShowing = !document.getElementById('loginOverlay')?.classList.contains('hidden');
+  if(loginShowing){
+    trigger.style.display = 'none';
+    if(panel) panel.classList.remove('open');
+  } else {
+    trigger.style.display = 'flex';
+  }
+}
+// Observe login state
+setInterval(setChatVisibility, 500);
+
 </script>
+<!-- CHAT ASSISTANT -->
+<button class="chat-trigger" id="chatTrigger" title="Ask the assistant">
+  <span class="ct-icon">◆</span>
+  <span class="ct-label">Ask</span>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="ch-brand">
+      <span class="ch-dot"></span>
+      <div>
+        <div class="ch-title">Dashboard Assistant</div>
+        <div class="ch-mode" id="chatMode">Offline · pattern lookup</div>
+      </div>
+    </div>
+    <button class="ch-close" id="chatClose" title="Close">×</button>
+  </div>
+  
+  <div class="chat-body" id="chatBody">
+    <div class="chat-welcome">
+      <div class="cw-title">Hi! Ask me about the data.</div>
+      <div class="cw-hint">Try one of these to get started:</div>
+      <div class="cw-suggestions" id="chatSuggestions"></div>
+    </div>
+  </div>
+  
+  <div class="chat-input-row">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Ask anything about the data…" autocomplete="off">
+    <button class="chat-send" id="chatSend" title="Send">→</button>
+  </div>
+  
+  <div class="chat-footer">
+    <span id="chatFooterText">Offline mode · answers from loaded data</span>
+    <button class="chat-config" id="chatConfig" title="Configure AI (advanced)">⚙</button>
+  </div>
+</div>
+
+<!-- AI CONFIG MODAL -->
+<div class="ai-config-overlay" id="aiConfigOverlay">
+  <div class="ai-config-box">
+    <div class="acb-header">
+      <div class="acb-title">Connect AI Assistant <em>(optional)</em></div>
+      <button class="acb-close" id="aiConfigClose">×</button>
+    </div>
+    <div class="acb-body">
+      <p class="acb-text">By default the assistant runs offline using simple pattern matching. To enable smarter conversational answers, connect to Anthropic Claude or OpenAI.</p>
+      <p class="acb-warn"><strong>⚠ Security note:</strong> The API key is stored in your browser only (localStorage). It is not committed to GitHub. However, anyone using <em>this</em> browser will be able to use the key. Do not share this browser session.</p>
+      
+      <label class="acb-label">Provider</label>
+      <select class="acb-input" id="aiProvider">
+        <option value="">— Offline (default) —</option>
+        <option value="anthropic">Anthropic Claude</option>
+        <option value="openai">OpenAI ChatGPT</option>
+      </select>
+      
+      <label class="acb-label">API Key</label>
+      <input type="password" class="acb-input" id="aiApiKey" placeholder="sk-… or sk-ant-…" autocomplete="off">
+      
+      <div class="acb-actions">
+        <button class="acb-clear" id="aiConfigClear">Clear & Use Offline</button>
+        <button class="acb-save" id="aiConfigSave">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
