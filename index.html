@@ -987,7 +987,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
   <!-- ACCOUNT TYPE BREAKDOWN -->
   <div class="section-label">
     <span class="num">vi.</span>
-    <span class="lbl">Revenue by Account Type · Old vs New</span>
+    <span class="lbl" id="acctypeSectionLabel">Revenue by Account Type · Old vs New</span>
     <span class="line"></span>
   </div>
   <div class="acctype-wrap" id="acctypeWrap"></div>
@@ -2318,68 +2318,93 @@ function buildAccountTypeBreakdown(){
   const container = document.getElementById('acctypeWrap');
   if(!container) return;
   
+  // Determine which quarters are active (empty = all 4 = annual)
+  const qs = (typeof selectedQuarters !== 'undefined' && selectedQuarters.length > 0)
+    ? [...selectedQuarters]
+    : ['Q1','Q2','Q3','Q4'];
+  const isAnnual = qs.length === 4;
+  const qLabel = isAnnual ? 'Annual' : qs.join(' + ');
+  
+  // Sum a metric across the selected quarters for one account (or use Total for annual)
+  const acctSum = (c, key) => {
+    if(isAnnual) return c.Total?.[key] || 0;
+    return qs.reduce((s, q) => s + ((c[q] && c[q][key]) || 0), 0);
+  };
+  
   // Classify accounts in current scope
   const isNew = (c) => String(c.accountStatus || '').toLowerCase().includes('new');
   const oldAccts = RAW.filter(c => !isNew(c) && !c.isLeadership);
   const newAccts = RAW.filter(c => isNew(c) && !c.isLeadership);
   
-  const sumBy = (accts, key) => accts.reduce((s,c) => s + (c.Total[key] || 0), 0);
+  const sumKey = (accts, key) => accts.reduce((s,c) => s + acctSum(c, key), 0);
   
-  const oldBud = sumBy(oldAccts, 'budRev');
-  const oldFc = sumBy(oldAccts, 'fcRev');
-  const newBud = sumBy(newAccts, 'budRev');
-  const newFc = sumBy(newAccts, 'fcRev');
+  const oldBud = sumKey(oldAccts, 'budRev');
+  const oldFc = sumKey(oldAccts, 'fcRev');
+  const newBud = sumKey(newAccts, 'budRev');
+  const newFc = sumKey(newAccts, 'fcRev');
   const totalBud = oldBud + newBud;
   const totalFc = oldFc + newFc;
   
-  if(totalFc === 0){
-    container.innerHTML = '<div style="padding:32px;text-align:center;color:var(--ink-3);font-style:italic">No revenue data in current scope.</div>';
+  // Update section header subtitle to reflect period
+  const labelEl = document.getElementById('acctypeSectionLabel');
+  if(labelEl){
+    labelEl.textContent = isAnnual
+      ? 'Revenue by Account Type · Old vs New'
+      : `Revenue by Account Type · Old vs New · ${qLabel}`;
+  }
+  
+  if(totalFc === 0 && totalBud === 0){
+    container.innerHTML = `<div style="padding:32px;text-align:center;color:var(--ink-3);font-style:italic">No revenue data for ${qLabel} in current scope.</div>`;
     return;
   }
   
-  const oldShare = (oldFc / totalFc) * 100;
-  const newShare = (newFc / totalFc) * 100;
+  const oldShare = totalFc ? (oldFc / totalFc) * 100 : 0;
+  const newShare = totalFc ? (newFc / totalFc) * 100 : 0;
   const oldAch = oldBud ? (oldFc / oldBud * 100) : 0;
   const newAch = newBud ? (newFc / newBud * 100) : 0;
   const totalAch = totalBud ? (totalFc / totalBud * 100) : 0;
   
-  // Top contributors per category — show all, sorted by forecast desc
-  const sortByFc = (a,b) => (b.Total.fcRev || 0) - (a.Total.fcRev || 0);
+  // Sort lists by forecast (using period-aware values)
+  const sortByFc = (a,b) => acctSum(b, 'fcRev') - acctSum(a, 'fcRev');
   const oldList = [...oldAccts].sort(sortByFc);
   const newList = [...newAccts].sort(sortByFc);
   
-  const rowHtml = (c) => `<tr>
-    <td class="acc">${c.name}</td>
-    <td>${c.leader || '—'}</td>
-    <td class="num">${fmt.inrLakh(c.Total.budRev || 0)}</td>
-    <td class="num accent">${fmt.inrLakh(c.Total.fcRev || 0)}</td>
-    <td class="num">${c.Total.budRev ? (c.Total.fcRev / c.Total.budRev * 100).toFixed(1) + '%' : '—'}</td>
-  </tr>`;
+  const rowHtml = (c) => {
+    const b = acctSum(c, 'budRev');
+    const f = acctSum(c, 'fcRev');
+    return `<tr>
+      <td class="acc">${c.name}</td>
+      <td>${c.leader || '—'}</td>
+      <td class="num">${fmt.inrLakh(b)}</td>
+      <td class="num accent">${fmt.inrLakh(f)}</td>
+      <td class="num">${b ? (f / b * 100).toFixed(1) + '%' : '—'}</td>
+    </tr>`;
+  };
   
   container.innerHTML = `
     <div class="acctype-header">
       <div class="acctype-card old">
         <div class="atc-label"><span class="dot old"></span>Old Accounts</div>
-        <div class="atc-amount">₹${fmt.inrLakh(oldFc)}<span class="unit">forecast</span></div>
+        <div class="atc-amount">₹${fmt.inrLakh(oldFc)}<span class="unit">${qLabel.toLowerCase()} fc</span></div>
         <div class="atc-meta"><span class="acc-count">${oldAccts.length} ${oldAccts.length === 1 ? 'account' : 'accounts'}</span> · Budget ₹${fmt.inrLakh(oldBud)} · Ach ${oldAch.toFixed(1)}%</div>
         <div class="atc-share">${oldShare.toFixed(1)}% of total</div>
       </div>
       <div class="acctype-card new">
         <div class="atc-label"><span class="dot new"></span>New Accounts</div>
-        <div class="atc-amount">₹${fmt.inrLakh(newFc)}<span class="unit">forecast</span></div>
+        <div class="atc-amount">₹${fmt.inrLakh(newFc)}<span class="unit">${qLabel.toLowerCase()} fc</span></div>
         <div class="atc-meta"><span class="acc-count">${newAccts.length} ${newAccts.length === 1 ? 'account' : 'accounts'}</span> · Budget ₹${fmt.inrLakh(newBud)} · Ach ${newAch.toFixed(1)}%</div>
         <div class="atc-share">${newShare.toFixed(1)}% of total</div>
       </div>
       <div class="acctype-card total">
         <div class="atc-label"><span class="dot total"></span>Total Portfolio</div>
-        <div class="atc-amount">₹${fmt.inrLakh(totalFc)}<span class="unit">forecast</span></div>
+        <div class="atc-amount">₹${fmt.inrLakh(totalFc)}<span class="unit">${qLabel.toLowerCase()} fc</span></div>
         <div class="atc-meta"><span class="acc-count">${oldAccts.length + newAccts.length} accounts</span> · Budget ₹${fmt.inrLakh(totalBud)} · Ach ${totalAch.toFixed(1)}%</div>
         <div class="atc-share">Old + New combined</div>
       </div>
     </div>
     
     <div class="acctype-detail">
-      <div class="acctype-detail-title">Account-Wise Detail — ${oldAccts.length + newAccts.length} accounts grouped by type</div>
+      <div class="acctype-detail-title">Account-Wise Detail — ${oldAccts.length + newAccts.length} accounts grouped by type · ${qLabel}</div>
       <table class="acctype-table">
         <thead>
           <tr>
@@ -3333,6 +3358,7 @@ function buildQuarterTabs(){
       // Refresh affected sections (no need to recompute totals — same quarter data, just different display)
       buildKPIs();
       buildQuarters();
+      if(typeof buildAccountTypeBreakdown === 'function') buildAccountTypeBreakdown();
     });
   });
 }
