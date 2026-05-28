@@ -68,56 +68,48 @@ body{min-height:100vh;background:
 
 /* MEETING NOTES VIEW */
 .notes-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px;flex-wrap:wrap}
-.notes-title{font-family:'Fraunces',serif;font-size:22px;color:var(--ink);font-style:normal;font-weight:500}
-.notes-title em{color:var(--accent);font-style:italic}
-.notes-sub{font-size:11px;color:var(--ink-3);margin-top:4px;letter-spacing:0.04em;font-family:'JetBrains Mono',monospace}
+.notes-title{font-family:'Fraunces',serif;font-size:20px;color:var(--ink);line-height:1.2}
+.notes-title em{font-style:italic;color:var(--accent)}
+.notes-sub{font-size:11px;color:var(--ink-3);letter-spacing:0.04em;font-family:'JetBrains Mono',monospace;margin-top:6px}
 .notes-actions{display:flex;gap:8px;flex-wrap:wrap}
-.notes-btn{background:var(--accent);color:#000;border:none;padding:9px 16px;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:5px;font-family:inherit;transition:all 0.2s}
+.notes-btn{background:var(--accent);color:#000;border:none;padding:9px 14px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;cursor:pointer;border-radius:4px;font-family:inherit;transition:all 0.2s;white-space:nowrap}
 .notes-btn:hover{background:#bfeb2a}
-.notes-btn.secondary{background:transparent;color:var(--ink-2);border:1px solid var(--line-2)}
-.notes-btn.secondary:hover{color:var(--ink);border-color:var(--accent)}
-.notes-btn.danger{background:transparent;color:var(--ink-3);border:1px solid var(--line-2)}
+.notes-btn.secondary{background:var(--panel);border:1px solid var(--line-2);color:var(--ink-2)}
+.notes-btn.secondary:hover{border-color:var(--accent);color:var(--accent)}
+.notes-btn.danger{background:transparent;border:1px solid var(--line-2);color:var(--ink-3)}
 .notes-btn.danger:hover{color:var(--bad);border-color:var(--bad)}
 
-.notes-status{font-size:10px;color:var(--ink-3);letter-spacing:0.08em;margin-bottom:16px;font-family:'JetBrains Mono',monospace;padding:8px 12px;background:var(--bg-2);border:1px solid var(--line);border-radius:4px;display:inline-block}
-.notes-status.has-notes{color:var(--accent)}
+.notes-status{font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;margin-bottom:14px;padding:8px 14px;background:var(--bg-2);border-radius:4px;border-left:2px solid var(--line-2)}
+.notes-status.has-notes{border-left-color:var(--accent)}
 
-.notes-grid{display:grid;grid-template-columns:300px 1fr;gap:16px;height:600px;background:var(--panel);border:1px solid var(--line-2);border-radius:6px;overflow:hidden}
+.notes-grid{display:grid;grid-template-columns:300px 1fr;gap:16px;height:640px;background:var(--panel);border:1px solid var(--line-2);border-radius:6px;overflow:hidden;margin-bottom:48px}
 @media(max-width:900px){.notes-grid{grid-template-columns:1fr;height:auto}}
 
 .notes-sidebar{display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--bg-2);overflow:hidden}
 @media(max-width:900px){.notes-sidebar{border-right:none;border-bottom:1px solid var(--line);max-height:260px}}
-.notes-search{margin:12px;background:var(--bg);border:1px solid var(--line-2);color:var(--ink);padding:8px 12px;font-size:11px;font-family:'JetBrains Mono',monospace;border-radius:4px;outline:none}
-.notes-search:focus{border-color:var(--accent)}
-.notes-list{flex:1;overflow-y:auto;padding:0 8px 12px}
+.notes-search{background:var(--bg);border:none;border-bottom:1px solid var(--line);color:var(--ink);padding:12px 14px;font-size:12px;font-family:'JetBrains Mono',monospace;outline:none;flex-shrink:0}
+.notes-search:focus{background:var(--bg-2)}
+.notes-list{flex:1;overflow-y:auto;padding:6px}
 .notes-list::-webkit-scrollbar{width:6px}
+.notes-list::-webkit-scrollbar-track{background:transparent}
 .notes-list::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+.note-item{padding:11px 12px;border-radius:4px;cursor:pointer;margin-bottom:3px;transition:background 0.15s;border:1px solid transparent}
+.note-item:hover{background:rgba(212,255,58,0.03)}
+.note-item.active{background:rgba(212,255,58,0.08);border-color:rgba(212,255,58,0.2)}
+.note-item-title{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:4px;font-family:'Inter Tight',sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note-item-preview{font-size:10px;color:var(--ink-3);line-height:1.4;font-family:'Inter Tight',sans-serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.note-item-meta{font-size:9px;color:var(--ink-3);letter-spacing:0.05em;font-family:'JetBrains Mono',monospace;margin-top:6px}
+.notes-empty-state{padding:30px 16px;text-align:center;color:var(--ink-3);font-size:11px;font-style:italic;line-height:1.5}
 
-.note-item{padding:12px 14px;border-radius:5px;cursor:pointer;margin-bottom:4px;border:1px solid transparent;transition:all 0.15s}
-.note-item:hover{background:var(--panel)}
-.note-item.active{background:var(--panel);border-color:var(--accent)}
-.note-item-title{font-size:12px;color:var(--ink);font-weight:600;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.note-item-preview{font-size:10px;color:var(--ink-3);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-family:'JetBrains Mono',monospace}
-.note-item-meta{font-size:9px;color:var(--ink-3);margin-top:6px;letter-spacing:0.05em;font-family:'JetBrains Mono',monospace}
-.notes-empty-state{padding:30px 16px;text-align:center;color:var(--ink-3);font-size:11px;font-style:italic}
-
-.notes-editor{display:flex;flex-direction:column;overflow:hidden;background:var(--panel)}
-.notes-editor-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;color:var(--ink-3)}
-.nee-icon{font-size:36px;color:var(--line-2);margin-bottom:12px;font-family:'Fraunces',serif}
-.nee-title{font-family:'Fraunces',serif;font-size:18px;color:var(--ink-2);font-style:italic;margin-bottom:6px}
-.nee-text{font-size:12px;font-family:'JetBrains Mono',monospace}
-
-.notes-editor-active{flex:1;display:flex;flex-direction:column;padding:20px}
-.notes-title-input{background:transparent;border:none;color:var(--ink);font-family:'Fraunces',serif;font-size:22px;font-weight:500;outline:none;padding:0 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.notes-editor{display:flex;flex-direction:column;padding:20px 22px;overflow-y:auto}
+.notes-editor-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;color:var(--ink-3)}
+.nee-icon{font-size:36px;color:var(--accent);opacity:0.5;font-family:'Fraunces',serif}
+.nee-title{font-family:'Fraunces',serif;font-size:18px;color:var(--ink-2);font-style:italic}
+.nee-text{font-size:12px;color:var(--ink-3);max-width:260px;line-height:1.5}
+.notes-editor-active{display:flex;flex-direction:column;height:100%}
+.notes-title-input{background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--ink);padding:8px 0;font-size:18px;font-family:'Fraunces',serif;font-style:italic;outline:none;margin-bottom:10px}
 .notes-title-input:focus{border-bottom-color:var(--accent)}
-.notes-meta-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.nm-tag{font-size:9px;letter-spacing:0.08em;color:var(--ink-3);background:var(--bg-2);padding:3px 8px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-weight:600}
-.notes-delete-btn{margin-left:auto;background:transparent;border:1px solid var(--line-2);color:var(--ink-3);padding:5px 12px;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;border-radius:4px;font-family:inherit;font-weight:600;transition:all 0.2s}
-.notes-delete-btn:hover{color:var(--bad);border-color:var(--bad)}
 
-.notes-body{flex:1;background:var(--bg-2);border:1px solid var(--line);color:var(--ink);padding:14px;font-size:13px;font-family:'Inter Tight',sans-serif;line-height:1.6;border-radius:5px;outline:none;resize:none;min-height:300px}
-
-/* Structured MoM fields */
 .mom-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
 .mom-field{display:flex;flex-direction:column;gap:6px}
 .mom-field.full{grid-column:1 / -1}
@@ -128,19 +120,13 @@ body{min-height:100vh;background:
 .mom-textarea.small{min-height:80px}
 .mom-textarea:focus{border-color:var(--accent)}
 
-/* Admin/Read-only states */
-.notes-readonly .mom-input,
-.notes-readonly .mom-textarea,
-.notes-readonly .notes-title-input{background:var(--bg);border-color:var(--line);color:var(--ink-2);cursor:default;pointer-events:none}
-.notes-readonly .admin-only{display:none !important}
-.notes-readonly .notes-saved-indicator{display:none}
-.readonly-banner{background:rgba(244,197,66,0.08);border:1px solid rgba(244,197,66,0.25);color:var(--warn);padding:10px 14px;font-size:11px;border-radius:5px;margin-bottom:14px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em}
-.notes-body:focus{border-color:var(--accent)}
-.notes-body::placeholder{color:var(--ink-3);line-height:1.5}
-
-.notes-saved-indicator{font-size:9px;color:var(--ink-3);letter-spacing:0.12em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;font-weight:600;margin-top:8px;align-self:flex-end;transition:color 0.3s}
+.notes-meta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:10px 0;border-top:1px solid var(--line);margin-top:auto}
+.nm-tag{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-3);font-family:'JetBrains Mono',monospace;font-weight:600}
+.notes-delete-btn{margin-left:auto;background:transparent;border:1px solid var(--line-2);color:var(--ink-3);font-size:10px;padding:5px 10px;border-radius:4px;cursor:pointer;letter-spacing:0.05em;font-family:inherit}
+.notes-delete-btn:hover{color:var(--bad);border-color:var(--bad)}
+.notes-saved-indicator{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:var(--good);font-family:'JetBrains Mono',monospace;padding-top:6px;align-self:flex-end}
 .notes-saved-indicator.saving{color:var(--warn)}
-.notes-saved-indicator.saved{color:var(--good)}
+
 .fy-stamp strong{display:block;font-style:normal;font-size:32px;font-weight:600;color:var(--ink);letter-spacing:-0.02em;line-height:1}
 .fy-stamp .fy-label{font-size:10px;text-transform:uppercase;letter-spacing:0.2em;font-style:normal;color:var(--ink-3);margin-top:6px;font-family:'Inter Tight',sans-serif}
 
@@ -159,6 +145,43 @@ body{min-height:100vh;background:
 
 /* KPI GRID */
 .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:48px}
+
+/* ACCOUNT TYPE BREAKDOWN */
+.acctype-wrap{background:var(--panel);border:1px solid var(--line-2);border-radius:8px;margin-bottom:48px;overflow:hidden}
+.acctype-header{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--line)}
+@media(max-width:900px){.acctype-header{grid-template-columns:1fr}}
+.acctype-card{padding:22px 24px;border-right:1px solid var(--line);position:relative}
+.acctype-card:last-child{border-right:none}
+.acctype-card.old{border-top:2px solid var(--ink-2)}
+.acctype-card.new{border-top:2px solid var(--accent)}
+.acctype-card.total{border-top:2px solid var(--gold);background:var(--bg-2)}
+.atc-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.atc-label .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.atc-label .dot.old{background:var(--ink-2)}
+.atc-label .dot.new{background:var(--accent)}
+.atc-label .dot.total{background:var(--gold)}
+.atc-amount{font-family:'Fraunces',serif;font-size:26px;font-weight:500;color:var(--ink);line-height:1.1;letter-spacing:-0.01em}
+.atc-amount .unit{font-size:12px;color:var(--ink-3);margin-left:6px;font-style:italic}
+.atc-meta{font-size:11px;color:var(--ink-2);font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;margin-top:8px;line-height:1.5}
+.atc-meta .acc-count{color:var(--accent);font-weight:600}
+.atc-share{display:inline-block;padding:2px 8px;border-radius:10px;background:var(--bg-2);font-size:10px;font-weight:700;color:var(--ink-2);margin-top:8px;letter-spacing:0.05em;font-family:'JetBrains Mono',monospace}
+
+.acctype-detail{padding:20px 24px}
+.acctype-detail-title{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700;font-family:'JetBrains Mono',monospace;margin-bottom:12px}
+.acctype-table{width:100%;border-collapse:collapse;font-size:12px}
+.acctype-table th{padding:8px 12px;text-align:left;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700;border-bottom:1px solid var(--line);font-family:'JetBrains Mono',monospace}
+.acctype-table th.num{text-align:right}
+.acctype-table td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink-2);font-family:'JetBrains Mono',monospace}
+.acctype-table td.acc{color:var(--ink);font-family:'Inter Tight',sans-serif;font-weight:500}
+.acctype-table td.num{text-align:right}
+.acctype-table td.num.accent{color:var(--accent);font-weight:600}
+.acctype-table tr:hover{background:rgba(212,255,58,0.03)}
+.acctype-table tr.divider td{background:var(--bg-2);font-weight:700;color:var(--ink);border-top:2px solid var(--line-2)}
+
+/* Type badge for ledger column */
+.type-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.type-badge.new{background:rgba(212,255,58,0.12);color:var(--accent);border:1px solid rgba(212,255,58,0.3)}
+.type-badge.old{background:rgba(184,179,168,0.08);color:var(--ink-2);border:1px solid var(--line-2)}
 .kpi{background:var(--panel);padding:22px 20px;position:relative;transition:all 0.3s}
 .kpi:hover{background:var(--panel-2)}
 .kpi-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3);font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px}
@@ -239,20 +262,6 @@ tbody tr.leadership td.client-name::before{content:'◆ ';color:var(--gold);marg
 .filter-btn.active{background:var(--accent);color:#000;border-color:var(--accent)}
 .filter-btn:hover:not(.active){color:var(--ink);border-color:var(--line-2)}
 
-/* INSIGHTS */
-.insights-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:48px}
-.insight{background:var(--panel);border:1px solid var(--line);padding:20px;position:relative;overflow:hidden}
-.insight::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--accent);transition:height 0.5s}
-.insight:hover::before{height:100%}
-.insight-tag{display:inline-block;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);background:rgba(212,255,58,0.08);padding:3px 8px;border-radius:3px;font-weight:700;margin-bottom:12px}
-.insight-tag.warn{color:var(--warn);background:rgba(244,197,66,0.08)}
-.insight-tag.alert{color:var(--bad);background:rgba(255,90,90,0.08)}
-.insight h3{font-family:'Fraunces',serif;font-size:17px;font-weight:500;line-height:1.25;margin-bottom:10px}
-.insight h3 em{font-style:italic;color:var(--accent)}
-.insight p{font-size:12px;color:var(--ink-2);line-height:1.5}
-.insight-stat{font-family:'Fraunces',serif;font-size:32px;font-weight:600;color:var(--ink);letter-spacing:-0.02em;line-height:1;margin:14px 0 4px}
-.insight-stat .unit{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-3)}
-
 /* TOP CLIENTS */
 .bars{display:flex;flex-direction:column;gap:10px;padding:8px 0}
 .bar-row{display:grid;grid-template-columns:140px 1fr 80px;gap:14px;align-items:center;font-size:12px}
@@ -299,13 +308,11 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
 
 @media (max-width:1400px){
   .kpi-grid{grid-template-columns:repeat(3,1fr)}
-  .insights-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:1200px){
   .kpi-grid{grid-template-columns:repeat(2,1fr)}
   .chart-row{grid-template-columns:1fr}
   .taggd-row{grid-template-columns:1fr}
-  .insights-grid{grid-template-columns:1fr}
   .quarter-strip{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:640px){
@@ -935,17 +942,9 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
     </div>
   </div>
 
-  <!-- INSIGHTS -->
-  <div class="section-label">
-    <span class="num">v.</span>
-    <span class="lbl">Editorial Notes · What's worth attention</span>
-    <span class="line"></span>
-  </div>
-  <div class="insights-grid" id="insightsGrid"></div>
-
   <!-- GOVERNANCE SUMMARY -->
   <div class="section-label">
-    <span class="num">vi.</span>
+    <span class="num">v.</span>
     <span class="lbl">Governance · Billing · SLA · Risk</span>
     <span class="line"></span>
   </div>
@@ -985,6 +984,14 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
     </div>
   </div>
 
+  <!-- ACCOUNT TYPE BREAKDOWN -->
+  <div class="section-label">
+    <span class="num">vi.</span>
+    <span class="lbl">Revenue by Account Type · Old vs New</span>
+    <span class="line"></span>
+  </div>
+  <div class="acctype-wrap" id="acctypeWrap"></div>
+
   <!-- ACCOUNT TABLE -->
   <div class="section-label">
     <span class="num">vii.</span>
@@ -1001,6 +1008,8 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="op">Operating</button>
         <button class="filter-btn" data-filter="lead">Leadership</button>
+        <button class="filter-btn" data-filter="new">New</button>
+        <button class="filter-btn" data-filter="old">Old</button>
         <input type="text" class="search-input" id="searchInput" placeholder="Search account…">
       </div>
     </div>
@@ -1009,6 +1018,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
         <thead>
           <tr>
             <th data-sort="name">Account</th>
+            <th data-sort="status">Type</th>
             <th data-sort="region" class="cell-num">Region</th>
             <th data-sort="budRev" class="cell-num">Budget Rev</th>
             <th data-sort="rev" class="cell-num">Forecast Rev</th>
@@ -1146,36 +1156,36 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
     <div class="notes-header">
       <div>
         <div class="notes-title">Minutes of Meeting · <em>CEO Review</em></div>
-        <div class="notes-sub" id="notesAccessNote">—</div>
+        <div class="notes-sub" id="notesAccessNote">All users can create, edit, and export MoMs · Notes saved to your browser</div>
       </div>
       <div class="notes-actions">
-        <button class="notes-btn admin-only" id="notesNewBtn">+ New MoM</button>
+        <button class="notes-btn" id="notesNewBtn">+ New MoM</button>
         <button class="notes-btn secondary" id="notesExportWordBtn">↓ Word</button>
         <button class="notes-btn secondary" id="notesExportPdfBtn">↓ PDF</button>
-        <button class="notes-btn admin-only danger" id="notesClearAllBtn">Clear All</button>
+        <button class="notes-btn secondary" id="notesExportJsonBtn">↓ Backup</button>
+        <button class="notes-btn secondary" id="notesImportJsonBtn">↑ Restore</button>
+        <input type="file" id="notesImportFile" accept=".json" style="display:none">
+        <button class="notes-btn danger" id="notesClearAllBtn">Clear All</button>
       </div>
     </div>
 
     <div class="notes-status" id="notesStatus">—</div>
 
     <div class="notes-grid">
-      <!-- Sidebar -->
       <aside class="notes-sidebar">
         <input type="text" class="notes-search" id="notesSearch" placeholder="Search MoMs…">
         <div class="notes-list" id="notesList"></div>
       </aside>
       
-      <!-- Editor -->
       <main class="notes-editor" id="notesEditorContainer">
         <div class="notes-editor-empty" id="notesEmpty">
           <div class="nee-icon">✎</div>
-          <div class="nee-title" id="emptyTitle">No MoM selected</div>
-          <div class="nee-text" id="emptySubtext">Click "+ New MoM" to start writing minutes for a meeting.</div>
+          <div class="nee-title">No MoM selected</div>
+          <div class="nee-text">Click "+ New MoM" to start writing minutes for a meeting.</div>
         </div>
         <div class="notes-editor-active" id="notesActive" style="display:none">
           <input type="text" class="notes-title-input" id="notesTitleInput" placeholder="Meeting title — e.g. Monthly CEO Review · Apr 2026">
           
-          <!-- Structured MoM fields (admin can fill any/all) -->
           <div class="mom-fields">
             <div class="mom-field">
               <label class="mom-label">Date & Time</label>
@@ -1207,7 +1217,7 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
             <span class="nm-tag" id="notesMetaCreated">—</span>
             <span class="nm-tag" id="notesMetaUpdated">—</span>
             <span class="nm-tag" id="notesMetaAuthor">—</span>
-            <button class="notes-delete-btn admin-only" id="notesDeleteBtn" title="Delete this MoM">🗑 Delete</button>
+            <button class="notes-delete-btn" id="notesDeleteBtn" title="Delete this MoM">🗑 Delete</button>
           </div>
           <div class="notes-saved-indicator" id="notesSavedIndicator">Saved</div>
         </div>
@@ -2082,58 +2092,6 @@ function buildRevPro(){
   }).join('');
 }
 
-// ============ Insights ============
-function buildInsights(){
-  // Top performer
-  const top = [...RAW].sort((a,b)=>b.Total.rev-a.Total.rev)[0];
-  const topShare = (top.Total.rev/totals.Total.rev*100).toFixed(1);
-  
-  // Loss-makers
-  const lossMakers = RAW.filter(c=>c.Total.rev>0 && c.Total.cm > 1);
-  const lossRev = lossMakers.reduce((s,c)=>s+c.Total.rev,0);
-  
-  // QoQ growth (Forecast Rev)
-  const q1Rev = totals.Q1.rev, q4Rev = totals.Q4.rev;
-  const annualGrowth = q1Rev ? ((q4Rev-q1Rev)/q1Rev*100).toFixed(1) : '0';
-  
-  // Budget vs Forecast at annual level
-  const achievement = totals.Total.budRev ? (totals.Total.fcRev/totals.Total.budRev*100) : 0;
-  const variance = totals.Total.fcRev - totals.Total.budRev;
-  
-  // Under-budget accounts: forecast < 85% of budget
-  const underBudget = RAW.filter(c => c.Total.budRev > 0 && (c.Total.fcRev/c.Total.budRev) < 0.85);
-  const underBudgetShortfall = underBudget.reduce((s,c)=>s + (c.Total.budRev - c.Total.fcRev), 0);
-  
-  // CM% direction
-  const cmShift = (totals.Q4.cm - totals.Q1.cm) * 100;
-  const cmDirection = cmShift > 0 ? 'rose' : 'eased';
-  
-  const items = [
-    {tag:'achievement', tagClass: achievement >= 95 ? '' : 'warn', 
-     title: achievement >= 100 ? `Portfolio <em>beat budget</em> by ${(achievement-100).toFixed(1)}%` : `Portfolio at <em>${achievement.toFixed(1)}%</em> of annual budget`,
-     stat: (variance>=0?'+':'')+'₹'+fmt.inrLakh(variance), unit:'variance',
-     body:`Annual forecast of ₹${fmt.inrLakh(totals.Total.fcRev)} against a budget of ₹${fmt.inrLakh(totals.Total.budRev)}. ${variance>=0?'Outperformance':'Shortfall'} of ₹${fmt.inrLakh(Math.abs(variance))}.`},
-    {tag:'concentration', tagClass:'', title:`<em>${top.name}</em> drives ${topShare}% of revenue`,
-     stat:'₹'+fmt.inrLakh(top.Total.rev), unit:'annual fc',
-     body:`Largest account by forecast revenue. CM% at ${fmt.pct(top.Total.cm)}, HC of ${Math.round(top.Total.hc||0)}, Rev Pro at ${(top.Total.revPro||0).toFixed(2)}.`},
-    {tag:'momentum', tagClass:'', title:`Forecast revenue grew <em>${annualGrowth}%</em> Q1 to Q4`,
-     stat: '+₹'+fmt.inrLakh(q4Rev-q1Rev), unit:'absolute',
-     body:`From ₹${fmt.inrLakh(q1Rev)} in Q1 to ₹${fmt.inrLakh(q4Rev)} in Q4. CM% ${cmDirection} ${Math.abs(cmShift).toFixed(1)}pp over the same window.`},
-    {tag:'attention', tagClass:'warn', title:`<em>${underBudget.length}</em> accounts under 85% achievement`,
-     stat:'₹'+fmt.inrLakh(underBudgetShortfall), unit:'shortfall',
-     body:`Accounts: ${underBudget.length ? underBudget.slice(0,4).map(c=>c.name).join(', ')+(underBudget.length>4?', +'+(underBudget.length-4)+' more':''):'None — every account hit at least 85% of its budget.'}.`},
-  ];
-  
-  document.getElementById('insightsGrid').innerHTML = items.map(it=>`
-    <div class="insight">
-      <span class="insight-tag ${it.tagClass}">${it.tag}</span>
-      <h3>${it.title}</h3>
-      <div class="insight-stat">${it.stat}<span class="unit"> ${it.unit}</span></div>
-      <p>${it.body}</p>
-    </div>
-  `).join('');
-}
-
 // ============ Governance Summary ============
 let govSearchTerm = '';
 
@@ -2355,13 +2313,102 @@ function buildGovTable(){
   }).join('');
 }
 
+// ============ Account Type Breakdown (Old vs New) ============
+function buildAccountTypeBreakdown(){
+  const container = document.getElementById('acctypeWrap');
+  if(!container) return;
+  
+  // Classify accounts in current scope
+  const isNew = (c) => String(c.accountStatus || '').toLowerCase().includes('new');
+  const oldAccts = RAW.filter(c => !isNew(c) && !c.isLeadership);
+  const newAccts = RAW.filter(c => isNew(c) && !c.isLeadership);
+  
+  const sumBy = (accts, key) => accts.reduce((s,c) => s + (c.Total[key] || 0), 0);
+  
+  const oldBud = sumBy(oldAccts, 'budRev');
+  const oldFc = sumBy(oldAccts, 'fcRev');
+  const newBud = sumBy(newAccts, 'budRev');
+  const newFc = sumBy(newAccts, 'fcRev');
+  const totalBud = oldBud + newBud;
+  const totalFc = oldFc + newFc;
+  
+  if(totalFc === 0){
+    container.innerHTML = '<div style="padding:32px;text-align:center;color:var(--ink-3);font-style:italic">No revenue data in current scope.</div>';
+    return;
+  }
+  
+  const oldShare = (oldFc / totalFc) * 100;
+  const newShare = (newFc / totalFc) * 100;
+  const oldAch = oldBud ? (oldFc / oldBud * 100) : 0;
+  const newAch = newBud ? (newFc / newBud * 100) : 0;
+  const totalAch = totalBud ? (totalFc / totalBud * 100) : 0;
+  
+  // Top contributors per category — show all, sorted by forecast desc
+  const sortByFc = (a,b) => (b.Total.fcRev || 0) - (a.Total.fcRev || 0);
+  const oldList = [...oldAccts].sort(sortByFc);
+  const newList = [...newAccts].sort(sortByFc);
+  
+  const rowHtml = (c) => `<tr>
+    <td class="acc">${c.name}</td>
+    <td>${c.leader || '—'}</td>
+    <td class="num">${fmt.inrLakh(c.Total.budRev || 0)}</td>
+    <td class="num accent">${fmt.inrLakh(c.Total.fcRev || 0)}</td>
+    <td class="num">${c.Total.budRev ? (c.Total.fcRev / c.Total.budRev * 100).toFixed(1) + '%' : '—'}</td>
+  </tr>`;
+  
+  container.innerHTML = `
+    <div class="acctype-header">
+      <div class="acctype-card old">
+        <div class="atc-label"><span class="dot old"></span>Old Accounts</div>
+        <div class="atc-amount">₹${fmt.inrLakh(oldFc)}<span class="unit">forecast</span></div>
+        <div class="atc-meta"><span class="acc-count">${oldAccts.length} ${oldAccts.length === 1 ? 'account' : 'accounts'}</span> · Budget ₹${fmt.inrLakh(oldBud)} · Ach ${oldAch.toFixed(1)}%</div>
+        <div class="atc-share">${oldShare.toFixed(1)}% of total</div>
+      </div>
+      <div class="acctype-card new">
+        <div class="atc-label"><span class="dot new"></span>New Accounts</div>
+        <div class="atc-amount">₹${fmt.inrLakh(newFc)}<span class="unit">forecast</span></div>
+        <div class="atc-meta"><span class="acc-count">${newAccts.length} ${newAccts.length === 1 ? 'account' : 'accounts'}</span> · Budget ₹${fmt.inrLakh(newBud)} · Ach ${newAch.toFixed(1)}%</div>
+        <div class="atc-share">${newShare.toFixed(1)}% of total</div>
+      </div>
+      <div class="acctype-card total">
+        <div class="atc-label"><span class="dot total"></span>Total Portfolio</div>
+        <div class="atc-amount">₹${fmt.inrLakh(totalFc)}<span class="unit">forecast</span></div>
+        <div class="atc-meta"><span class="acc-count">${oldAccts.length + newAccts.length} accounts</span> · Budget ₹${fmt.inrLakh(totalBud)} · Ach ${totalAch.toFixed(1)}%</div>
+        <div class="atc-share">Old + New combined</div>
+      </div>
+    </div>
+    
+    <div class="acctype-detail">
+      <div class="acctype-detail-title">Account-Wise Detail — ${oldAccts.length + newAccts.length} accounts grouped by type</div>
+      <table class="acctype-table">
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th>Leader</th>
+            <th class="num">Budget ₹L</th>
+            <th class="num">Forecast ₹L</th>
+            <th class="num">Ach %</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${newAccts.length > 0 ? `<tr class="divider"><td colspan="5">🟢 New Accounts (${newAccts.length})</td></tr>${newList.map(rowHtml).join('')}` : ''}
+          ${oldAccts.length > 0 ? `<tr class="divider"><td colspan="5">⚪ Old Accounts (${oldAccts.length})</td></tr>${oldList.map(rowHtml).join('')}` : ''}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
 // ============ Account Table ============
 let sortKey = 'rev', sortDir = -1, currentFilter = 'all', searchTerm = '';
 
 function buildTable(){
   let rows = [...RAW];
+  const isNew = (c) => String(c.accountStatus || '').toLowerCase().includes('new');
   if(currentFilter==='lead') rows = rows.filter(c=>c.isLeadership);
   else if(currentFilter==='op') rows = rows.filter(c=>!c.isLeadership);
+  else if(currentFilter==='new') rows = rows.filter(c=>isNew(c));
+  else if(currentFilter==='old') rows = rows.filter(c=>!isNew(c) && !c.isLeadership);
   if(searchTerm) rows = rows.filter(c=>c.name.toLowerCase().includes(searchTerm.toLowerCase()));
   
   rows.sort((a,b)=>{
@@ -2371,6 +2418,10 @@ function buildTable(){
     if(sortKey==='rev'){av=a.Total.rev;bv=b.Total.rev}
     else if(sortKey==='budRev'){av=a.Total.budRev;bv=b.Total.budRev}
     else if(sortKey==='achievement'){av=a.Total.budRev?a.Total.fcRev/a.Total.budRev:0;bv=b.Total.budRev?b.Total.fcRev/b.Total.budRev:0}
+    else if(sortKey==='status'){
+      av = String(a.accountStatus || '').toLowerCase().includes('new') ? 1 : 0;
+      bv = String(b.accountStatus || '').toLowerCase().includes('new') ? 1 : 0;
+    }
     else if(sortKey==='cm'){av=a.Total.cm;bv=b.Total.cm}
     else if(sortKey==='ppc'){av=a.Total.ppc;bv=b.Total.ppc}
     else if(sortKey==='hc'){av=a.Total.hc||0;bv=b.Total.hc||0}
@@ -2405,8 +2456,13 @@ function buildTable(){
       else if(ach < 85) achCls = 'cell-neg';
     }
     const achDisp = c.Total.budRev > 0 ? ach.toFixed(0)+'%' : '—';
+    const accountIsNew = String(c.accountStatus || '').toLowerCase().includes('new');
+    const typeBadge = c.isLeadership 
+      ? '<span class="type-badge old" style="opacity:0.5">Lead</span>'
+      : (accountIsNew ? '<span class="type-badge new">New</span>' : '<span class="type-badge old">Old</span>');
     return `<tr class="${c.isLeadership?'leadership':''}">
       <td class="client-name">${c.name}</td>
+      <td>${typeBadge}</td>
       <td class="cell-num" style="font-family:'Inter Tight',sans-serif;font-size:11px;color:var(--ink-3)">${c.region||'—'}</td>
       <td class="cell-num">₹${fmt.inrLakh(c.Total.budRev)}</td>
       <td class="cell-num">₹${fmt.inrLakh(c.Total.rev)}</td>
@@ -3061,8 +3117,8 @@ function refreshDashboard(){
   safeCall('Top bars', buildTopBars);
   safeCall('Taggd section', buildTaggd);
   safeCall('Rev Pro section', buildRevPro);
-  safeCall('Insights', buildInsights);
   safeCall('Governance', buildGovernance);
+  safeCall('Account type breakdown', buildAccountTypeBreakdown);
   safeCall('Account table', buildTable);
   safeCall('Status', updateDataSourceStatus);
   // Rebuild filter UIs so counts and dropdowns reflect the current scope
@@ -3303,8 +3359,8 @@ buildTrendChart('budRev');
 buildTopBars();
 buildTaggd();
 buildRevPro();
-buildInsights();
 buildGovernance();
+buildAccountTypeBreakdown();
 buildTable();
 
 // ============ AUTO-FETCH FROM SAME-FOLDER EXCEL ============
@@ -3803,9 +3859,10 @@ document.querySelectorAll('#actualsDataTable th.sortable').forEach(th => {
 });
 
 // ============ MEETING NOTES ============
-// Stores per-user notes in localStorage. Each note: {id, title, body, createdAt, updatedAt, author}
-const NOTES_STORAGE_KEY = 'taggd_meeting_notes_v1';
-
+// All users (admin + leaders) can create/edit/delete notes. 
+// Notes are stored in localStorage per-browser. To share between users,
+// use the ↓ Word / ↓ PDF export, or ↓ Backup + ↑ Restore for JSON transfer.
+const NOTES_STORAGE_KEY = 'taggd_meeting_notes_v2';
 let allNotes = [];
 let activeNoteId = null;
 let notesSearchTerm = '';
@@ -3815,12 +3872,7 @@ function loadAllNotes(){
   try {
     const raw = localStorage.getItem(NOTES_STORAGE_KEY);
     allNotes = raw ? JSON.parse(raw) : [];
-    // Migration: convert old plain-body notes to structured format
     allNotes.forEach(n => {
-      if(n.body !== undefined && n.discussion === undefined){
-        n.discussion = n.body || '';
-        delete n.body;
-      }
       n.momDate = n.momDate || '';
       n.attendees = n.attendees || '';
       n.agenda = n.agenda || '';
@@ -3828,34 +3880,16 @@ function loadAllNotes(){
       n.actions = n.actions || '';
       n.remarks = n.remarks || '';
     });
-  } catch(e){
-    console.warn('[Notes] Failed to load:', e);
-    allNotes = [];
-  }
+  } catch(e){ allNotes = []; }
 }
 
 function saveAllNotes(){
-  try {
-    localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(allNotes));
-  } catch(e){
-    console.warn('[Notes] Failed to save:', e);
-  }
-}
-
-// All MoM notes are shared (created by Admin, viewable by everyone)
-function getUserNotes(){
-  return allNotes;
-}
-
-function isAdminUser(){
-  return CURRENT_USER && CURRENT_USER.isAdmin === true;
+  try { localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(allNotes)); } catch(e){}
 }
 
 function formatNoteDate(ts){
   const d = new Date(ts);
-  const now = new Date();
-  const diffMs = now - d;
-  const diffMin = Math.floor(diffMs / 60000);
+  const diffMin = Math.floor((Date.now() - d) / 60000);
   if(diffMin < 1) return 'just now';
   if(diffMin < 60) return diffMin + 'm ago';
   const diffH = Math.floor(diffMin / 60);
@@ -3864,20 +3898,14 @@ function formatNoteDate(ts){
 }
 
 function createNewNote(){
-  if(!isAdminUser()){ alert('Only Admin can create new MoM entries.'); return; }
-  const userKey = CURRENT_USER ? CURRENT_USER.name : 'Admin';
+  const userKey = CURRENT_USER ? CURRENT_USER.name : 'Anonymous';
   const now = new Date();
   const note = {
     id: 'n_' + Date.now() + '_' + Math.random().toString(36).slice(2,8),
     title: 'CEO Review · ' + now.toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'}),
     momDate: now.toLocaleString('en-IN', {day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit'}),
-    attendees: '',
-    agenda: '',
-    discussion: '',
-    actions: '',
-    remarks: '',
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
+    attendees: '', agenda: '', discussion: '', actions: '', remarks: '',
+    createdAt: Date.now(), updatedAt: Date.now(),
     author: userKey,
   };
   allNotes.unshift(note);
@@ -3889,7 +3917,6 @@ function createNewNote(){
 }
 
 function deleteActiveNote(){
-  if(!isAdminUser()){ alert('Only Admin can delete MoM entries.'); return; }
   if(!activeNoteId) return;
   if(!confirm('Delete this MoM? This cannot be undone.')) return;
   allNotes = allNotes.filter(n => n.id !== activeNoteId);
@@ -3900,9 +3927,8 @@ function deleteActiveNote(){
 }
 
 function clearAllNotes(){
-  if(!isAdminUser()){ alert('Only Admin can clear MoMs.'); return; }
   if(allNotes.length === 0){ alert('No MoMs to clear.'); return; }
-  if(!confirm(`Delete ALL ${allNotes.length} MoM entries? This cannot be undone.`)) return;
+  if(!confirm(`Delete ALL ${allNotes.length} MoMs in your browser? This cannot be undone.`)) return;
   allNotes = [];
   saveAllNotes();
   activeNoteId = null;
@@ -3910,176 +3936,67 @@ function clearAllNotes(){
   renderActiveNote();
 }
 
-// Build the structured MoM as plain-text for embedding in exports
-function momToText(note){
-  const lines = [];
-  lines.push(note.title || 'Untitled MoM');
-  lines.push('='.repeat((note.title || 'Untitled MoM').length));
-  lines.push('');
-  if(note.momDate) lines.push('Date & Time: ' + note.momDate);
-  if(note.attendees) lines.push('Attendees: ' + note.attendees);
-  lines.push('Recorded by: ' + (note.author || 'Admin'));
-  lines.push('');
-  if(note.agenda){ lines.push('AGENDA'); lines.push('------'); lines.push(note.agenda); lines.push(''); }
-  if(note.discussion){ lines.push('KEY DISCUSSION & DECISIONS'); lines.push('---------------------------'); lines.push(note.discussion); lines.push(''); }
-  if(note.actions){ lines.push('ACTION ITEMS'); lines.push('------------'); lines.push(note.actions); lines.push(''); }
-  if(note.remarks){ lines.push('REMARKS'); lines.push('-------'); lines.push(note.remarks); lines.push(''); }
-  return lines.join('\n');
-}
-
-// Export single note (or all) to a Word-compatible HTML document
-// Word opens HTML and treats it as a doc — this is the simplest no-dependency approach
-function exportAsWord(){
-  const userNotes = getUserNotes();
-  if(userNotes.length === 0){ alert('No MoMs to export.'); return; }
+function renderNotesList(){
+  const list = document.getElementById('notesList');
+  const status = document.getElementById('notesStatus');
+  if(!list) return;
   
-  const esc = (s) => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  let notes = [...allNotes];
+  if(notesSearchTerm){
+    const t = notesSearchTerm.toLowerCase();
+    notes = notes.filter(n => 
+      (n.title || '').toLowerCase().includes(t) ||
+      (n.discussion || '').toLowerCase().includes(t) ||
+      (n.actions || '').toLowerCase().includes(t) ||
+      (n.remarks || '').toLowerCase().includes(t)
+    );
+  }
+  notes.sort((a,b) => b.updatedAt - a.updatedAt);
   
-  const sections = userNotes.map(n => `
-    <div style="margin-bottom: 32px; page-break-after: always;">
-      <h1 style="font-family: Calibri, sans-serif; color: #1a1d21; font-size: 22pt; border-bottom: 3px solid #d4ff3a; padding-bottom: 8px;">${esc(n.title) || 'Untitled MoM'}</h1>
-      <table style="font-family: Calibri, sans-serif; font-size: 11pt; margin: 12px 0; border-collapse: collapse;">
-        <tr><td style="padding: 4px 12px 4px 0; color: #666; font-weight: bold; vertical-align: top;">Date & Time:</td><td style="padding: 4px 0;">${esc(n.momDate) || '—'}</td></tr>
-        <tr><td style="padding: 4px 12px 4px 0; color: #666; font-weight: bold; vertical-align: top;">Attendees:</td><td style="padding: 4px 0;">${esc(n.attendees) || '—'}</td></tr>
-        <tr><td style="padding: 4px 12px 4px 0; color: #666; font-weight: bold; vertical-align: top;">Recorded by:</td><td style="padding: 4px 0;">${esc(n.author) || 'Admin'}</td></tr>
-      </table>
-      ${n.agenda ? `<h2 style="font-family: Calibri, sans-serif; color: #1a1d21; font-size: 14pt; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">Agenda</h2><p style="font-family: Calibri, sans-serif; font-size: 11pt; line-height: 1.6;">${esc(n.agenda)}</p>` : ''}
-      ${n.discussion ? `<h2 style="font-family: Calibri, sans-serif; color: #1a1d21; font-size: 14pt; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">Key Discussion & Decisions</h2><p style="font-family: Calibri, sans-serif; font-size: 11pt; line-height: 1.6;">${esc(n.discussion)}</p>` : ''}
-      ${n.actions ? `<h2 style="font-family: Calibri, sans-serif; color: #1a1d21; font-size: 14pt; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">Action Items</h2><p style="font-family: Calibri, sans-serif; font-size: 11pt; line-height: 1.6;">${esc(n.actions)}</p>` : ''}
-      ${n.remarks ? `<h2 style="font-family: Calibri, sans-serif; color: #1a1d21; font-size: 14pt; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 4px;">Remarks</h2><p style="font-family: Calibri, sans-serif; font-size: 11pt; line-height: 1.6;">${esc(n.remarks)}</p>` : ''}
-    </div>
-  `).join('\n');
+  if(status){
+    if(allNotes.length === 0){
+      status.textContent = 'No MoMs yet. Click "+ New MoM" to create one.';
+      status.classList.remove('has-notes');
+    } else {
+      status.textContent = `${allNotes.length} ${allNotes.length === 1 ? 'MoM' : 'MoMs'} on record · Stored in this browser`;
+      status.classList.add('has-notes');
+    }
+  }
   
-  const fullHtml = `<!DOCTYPE html>
-<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
-<head>
-<meta charset="utf-8">
-<title>CEO Review · Minutes of Meeting</title>
-<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->
-<style>
-  @page WordSection1 { size: 8.5in 11in; margin: 1in; }
-  div.WordSection1 { page: WordSection1; }
-  body { font-family: Calibri, sans-serif; }
-</style>
-</head>
-<body>
-<div class="WordSection1">
-  <div style="text-align:center; margin-bottom: 32px;">
-    <h1 style="font-family: Calibri, sans-serif; font-size: 26pt; color: #1a1d21; margin-bottom: 6px;">Taggd · CEO Review</h1>
-    <div style="font-family: Calibri, sans-serif; font-size: 13pt; color: #666; font-style: italic;">Minutes of Meeting · FY 2026–27</div>
-    <div style="font-family: Calibri, sans-serif; font-size: 10pt; color: #999; margin-top: 6px;">Exported ${new Date().toLocaleString('en-IN', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
-  </div>
-  ${sections}
-</div>
-</body>
-</html>`;
+  if(notes.length === 0){
+    list.innerHTML = `<div class="notes-empty-state">${notesSearchTerm ? `No MoMs match "${notesSearchTerm}"` : 'Create your first MoM to get started'}</div>`;
+    return;
+  }
   
-  const blob = new Blob([fullHtml], { type: 'application/msword' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `CEO_Review_MoM_${new Date().toISOString().slice(0,10)}.doc`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-// Export to PDF — opens print dialog with a clean printable layout
-function exportAsPdf(){
-  const userNotes = getUserNotes();
-  if(userNotes.length === 0){ alert('No MoMs to export.'); return; }
+  list.innerHTML = notes.map(n => {
+    const preview = (n.discussion || n.agenda || n.remarks || '').slice(0, 100).replace(/\n/g, ' ').replace(/</g,'&lt;');
+    return `<div class="note-item ${n.id === activeNoteId ? 'active' : ''}" data-id="${n.id}">
+      <div class="note-item-title">${(n.title || 'Untitled MoM').replace(/</g,'&lt;')}</div>
+      <div class="note-item-preview">${preview || '<em>(no content)</em>'}</div>
+      <div class="note-item-meta">${formatNoteDate(n.updatedAt)} · ${(n.author || '—').replace(/</g,'&lt;')}</div>
+    </div>`;
+  }).join('');
   
-  const esc = (s) => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-  
-  const sections = userNotes.map(n => `
-    <div class="mom-page">
-      <h1>${esc(n.title) || 'Untitled MoM'}</h1>
-      <div class="meta">
-        <div><strong>Date & Time:</strong> ${esc(n.momDate) || '—'}</div>
-        <div><strong>Attendees:</strong> ${esc(n.attendees) || '—'}</div>
-        <div><strong>Recorded by:</strong> ${esc(n.author) || 'Admin'}</div>
-      </div>
-      ${n.agenda ? `<h2>Agenda</h2><div class="content">${esc(n.agenda)}</div>` : ''}
-      ${n.discussion ? `<h2>Key Discussion & Decisions</h2><div class="content">${esc(n.discussion)}</div>` : ''}
-      ${n.actions ? `<h2>Action Items</h2><div class="content">${esc(n.actions)}</div>` : ''}
-      ${n.remarks ? `<h2>Remarks</h2><div class="content">${esc(n.remarks)}</div>` : ''}
-    </div>
-  `).join('\n');
-  
-  const printWindow = window.open('', '_blank');
-  if(!printWindow){ alert('Please allow pop-ups for this site, then try again.'); return; }
-  printWindow.document.write(`<!DOCTYPE html>
-<html><head><title>CEO Review · MoM</title>
-<style>
-  @page { size: A4; margin: 1in; }
-  body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1a1d21; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
-  .cover { text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 3px solid #d4ff3a; }
-  .cover h1 { font-size: 28pt; margin: 0 0 8px; color: #1a1d21; }
-  .cover .sub { font-size: 14pt; color: #666; font-style: italic; }
-  .cover .ts { font-size: 10pt; color: #999; margin-top: 8px; }
-  .mom-page { page-break-after: always; margin-bottom: 40px; }
-  .mom-page:last-child { page-break-after: auto; }
-  h1 { font-size: 20pt; color: #1a1d21; border-bottom: 2px solid #d4ff3a; padding-bottom: 6px; margin-top: 24px; }
-  h2 { font-size: 13pt; color: #444; margin-top: 16px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
-  .meta { background: #f5f5f5; padding: 12px 16px; border-radius: 4px; margin: 12px 0; font-size: 11pt; }
-  .meta div { margin: 4px 0; }
-  .meta strong { color: #666; }
-  .content { font-size: 11pt; margin: 8px 0 16px; }
-  @media print { .no-print { display: none; } }
-</style>
-</head>
-<body>
-  <div class="cover">
-    <h1>Taggd · CEO Review</h1>
-    <div class="sub">Minutes of Meeting · FY 2026–27</div>
-    <div class="ts">Exported ${new Date().toLocaleString('en-IN', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
-  </div>
-  ${sections}
-  <div class="no-print" style="position:fixed;top:20px;right:20px;background:#d4ff3a;color:#000;padding:14px 22px;border-radius:6px;font-weight:bold;cursor:pointer" onclick="window.print()">↓ Save as PDF</div>
-</body></html>`);
-  printWindow.document.close();
-  // Auto-trigger print after content renders
-  setTimeout(() => { printWindow.print(); }, 400);
+  list.querySelectorAll('.note-item').forEach(el => {
+    el.onclick = () => {
+      activeNoteId = el.dataset.id;
+      renderNotesList();
+      renderActiveNote();
+    };
+  });
 }
 
 function renderActiveNote(){
   const empty = document.getElementById('notesEmpty');
   const active = document.getElementById('notesActive');
-  const container = document.getElementById('notesEditorContainer');
-  
-  // Apply read-only state for non-admin users
-  if(container){
-    if(isAdminUser()){
-      container.classList.remove('notes-readonly');
-    } else {
-      container.classList.add('notes-readonly');
-    }
-  }
   
   if(!activeNoteId){
     empty.style.display = 'flex';
     active.style.display = 'none';
-    // Update empty-state messaging based on role
-    const emptyTitle = document.getElementById('emptyTitle');
-    const emptySub = document.getElementById('emptySubtext');
-    if(emptyTitle && emptySub){
-      if(isAdminUser()){
-        emptyTitle.textContent = 'No MoM selected';
-        emptySub.textContent = 'Click "+ New MoM" to start writing minutes for a meeting.';
-      } else {
-        emptyTitle.textContent = 'No MoM available';
-        emptySub.textContent = 'The Admin has not published any meeting minutes yet.';
-      }
-    }
     return;
   }
   const note = allNotes.find(n => n.id === activeNoteId);
-  if(!note){
-    activeNoteId = null;
-    renderActiveNote();
-    return;
-  }
+  if(!note){ activeNoteId = null; renderActiveNote(); return; }
   empty.style.display = 'none';
   active.style.display = 'flex';
   document.getElementById('notesTitleInput').value = note.title || '';
@@ -4091,26 +4008,23 @@ function renderActiveNote(){
   document.getElementById('momRemarks').value = note.remarks || '';
   document.getElementById('notesMetaCreated').textContent = 'Created ' + formatNoteDate(note.createdAt);
   document.getElementById('notesMetaUpdated').textContent = 'Updated ' + formatNoteDate(note.updatedAt);
-  document.getElementById('notesMetaAuthor').textContent = '✎ ' + note.author;
+  document.getElementById('notesMetaAuthor').textContent = '✎ ' + (note.author || '—');
   setSavedIndicator('saved');
 }
 
 function setSavedIndicator(state){
   const ind = document.getElementById('notesSavedIndicator');
   if(!ind) return;
-  ind.classList.remove('saving','saved');
-  if(state === 'saving'){ ind.classList.add('saving'); ind.textContent = 'Saving…'; }
-  else { ind.classList.add('saved'); ind.textContent = 'Saved'; }
+  ind.classList.toggle('saving', state === 'saving');
+  ind.textContent = state === 'saving' ? 'Saving…' : 'Saved';
 }
 
 function updateActiveNote(){
-  if(!isAdminUser()) return; // non-admin cannot edit
   if(!activeNoteId) return;
   const note = allNotes.find(n => n.id === activeNoteId);
   if(!note) return;
-  const newTitle = document.getElementById('notesTitleInput').value.trim() || 'Untitled MoM';
   const fields = {
-    title: newTitle,
+    title: (document.getElementById('notesTitleInput').value || '').trim() || 'Untitled MoM',
     momDate: document.getElementById('momDate').value,
     attendees: document.getElementById('momAttendees').value,
     agenda: document.getElementById('momAgenda').value,
@@ -4133,106 +4047,118 @@ function updateActiveNote(){
 
 function refreshNotesView(){
   loadAllNotes();
-  
-  // Update access banner text
-  const accessNote = document.getElementById('notesAccessNote');
-  if(accessNote){
-    if(isAdminUser()){
-      accessNote.textContent = 'Admin mode · You can create, edit, and export MoMs';
-    } else {
-      accessNote.textContent = 'View-only · Only the Admin can create or edit MoMs';
-    }
-  }
-  
-  // Hide admin-only buttons for non-admin users
-  document.querySelectorAll('.admin-only').forEach(el => {
-    el.style.display = isAdminUser() ? '' : 'none';
-  });
-  
   renderNotesList();
   renderActiveNote();
 }
 
-function renderNotesList(){
-  const list = document.getElementById('notesList');
-  const status = document.getElementById('notesStatus');
-  if(!list) return;
-  
-  let notes = getUserNotes();
-  if(notesSearchTerm){
-    const t = notesSearchTerm.toLowerCase();
-    notes = notes.filter(n => 
-      (n.title || '').toLowerCase().includes(t) ||
-      (n.discussion || '').toLowerCase().includes(t) ||
-      (n.actions || '').toLowerCase().includes(t) ||
-      (n.remarks || '').toLowerCase().includes(t)
-    );
-  }
-  notes.sort((a,b) => b.updatedAt - a.updatedAt);
-  
-  const total = getUserNotes().length;
-  if(status){
-    if(total === 0){
-      status.textContent = isAdminUser() 
-        ? `No MoMs yet. Click "+ New MoM" to create one.`
-        : `No MoMs published yet. Check back after the next meeting.`;
-      status.classList.remove('has-notes');
-    } else {
-      status.textContent = `${total} ${total === 1 ? 'MoM' : 'MoMs'} on record · Shared with all dashboard users`;
-      status.classList.add('has-notes');
-    }
-  }
-  
-  if(notes.length === 0){
-    list.innerHTML = `<div class="notes-empty-state">${notesSearchTerm ? `No MoMs match "${notesSearchTerm}"` : (isAdminUser() ? 'Create your first MoM to get started' : 'Nothing here yet')}</div>`;
-    return;
-  }
-  
-  list.innerHTML = notes.map(n => {
-    const previewSource = n.discussion || n.agenda || n.remarks || '';
-    const preview = previewSource.slice(0, 100).replace(/\n/g, ' ').replace(/</g,'&lt;');
-    return `<div class="note-item ${n.id === activeNoteId ? 'active' : ''}" data-id="${n.id}">
-      <div class="note-item-title">${(n.title || 'Untitled MoM').replace(/</g,'&lt;')}</div>
-      <div class="note-item-preview">${preview || '<em>(no content)</em>'}</div>
-      <div class="note-item-meta">${formatNoteDate(n.updatedAt)}</div>
-    </div>`;
-  }).join('');
-  
-  list.querySelectorAll('.note-item').forEach(el => {
-    el.onclick = () => {
-      activeNoteId = el.dataset.id;
-      renderNotesList();
-      renderActiveNote();
-    };
-  });
+// Export to Word
+function exportAsWord(){
+  if(allNotes.length === 0){ alert('No MoMs to export.'); return; }
+  const esc = (s) => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  const sections = allNotes.map(n => `
+    <div style="margin-bottom:32px;page-break-after:always">
+      <h1 style="font-family:Calibri,sans-serif;color:#1a1d21;font-size:22pt;border-bottom:3px solid #d4ff3a;padding-bottom:8px">${esc(n.title) || 'Untitled MoM'}</h1>
+      <table style="font-family:Calibri,sans-serif;font-size:11pt;margin:12px 0;border-collapse:collapse">
+        <tr><td style="padding:4px 12px 4px 0;color:#666;font-weight:bold">Date & Time:</td><td style="padding:4px 0">${esc(n.momDate) || '—'}</td></tr>
+        <tr><td style="padding:4px 12px 4px 0;color:#666;font-weight:bold">Attendees:</td><td style="padding:4px 0">${esc(n.attendees) || '—'}</td></tr>
+        <tr><td style="padding:4px 12px 4px 0;color:#666;font-weight:bold">Recorded by:</td><td style="padding:4px 0">${esc(n.author) || '—'}</td></tr>
+      </table>
+      ${n.agenda ? `<h2 style="font-family:Calibri,sans-serif;color:#1a1d21;font-size:14pt;margin-top:20px;border-bottom:1px solid #ddd;padding-bottom:4px">Agenda</h2><p style="font-family:Calibri,sans-serif;font-size:11pt;line-height:1.6">${esc(n.agenda)}</p>` : ''}
+      ${n.discussion ? `<h2 style="font-family:Calibri,sans-serif;color:#1a1d21;font-size:14pt;margin-top:20px;border-bottom:1px solid #ddd;padding-bottom:4px">Key Discussion & Decisions</h2><p style="font-family:Calibri,sans-serif;font-size:11pt;line-height:1.6">${esc(n.discussion)}</p>` : ''}
+      ${n.actions ? `<h2 style="font-family:Calibri,sans-serif;color:#1a1d21;font-size:14pt;margin-top:20px;border-bottom:1px solid #ddd;padding-bottom:4px">Action Items</h2><p style="font-family:Calibri,sans-serif;font-size:11pt;line-height:1.6">${esc(n.actions)}</p>` : ''}
+      ${n.remarks ? `<h2 style="font-family:Calibri,sans-serif;color:#1a1d21;font-size:14pt;margin-top:20px;border-bottom:1px solid #ddd;padding-bottom:4px">Remarks</h2><p style="font-family:Calibri,sans-serif;font-size:11pt;line-height:1.6">${esc(n.remarks)}</p>` : ''}
+    </div>`).join('');
+  const html = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>CEO Review · MoM</title><!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]--><style>@page WordSection1{size:8.5in 11in;margin:1in}div.WordSection1{page:WordSection1}body{font-family:Calibri,sans-serif}</style></head><body><div class="WordSection1"><div style="text-align:center;margin-bottom:32px"><h1 style="font-family:Calibri,sans-serif;font-size:26pt;color:#1a1d21;margin-bottom:6px">Taggd · CEO Review</h1><div style="font-family:Calibri,sans-serif;font-size:13pt;color:#666;font-style:italic">Minutes of Meeting · FY 2026–27</div><div style="font-family:Calibri,sans-serif;font-size:10pt;color:#999;margin-top:6px">Exported ${new Date().toLocaleString('en-IN', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></div>${sections}</div></body></html>`;
+  const blob = new Blob([html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `CEO_Review_MoM_${new Date().toISOString().slice(0,10)}.doc`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
 }
 
-// Wire UI handlers — these only need to attach once
+// Export to PDF (via print dialog)
+function exportAsPdf(){
+  if(allNotes.length === 0){ alert('No MoMs to export.'); return; }
+  const esc = (s) => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  const sections = allNotes.map(n => `
+    <div class="mom-page">
+      <h1>${esc(n.title) || 'Untitled MoM'}</h1>
+      <div class="meta">
+        <div><strong>Date & Time:</strong> ${esc(n.momDate) || '—'}</div>
+        <div><strong>Attendees:</strong> ${esc(n.attendees) || '—'}</div>
+        <div><strong>Recorded by:</strong> ${esc(n.author) || '—'}</div>
+      </div>
+      ${n.agenda ? `<h2>Agenda</h2><div class="content">${esc(n.agenda)}</div>` : ''}
+      ${n.discussion ? `<h2>Key Discussion & Decisions</h2><div class="content">${esc(n.discussion)}</div>` : ''}
+      ${n.actions ? `<h2>Action Items</h2><div class="content">${esc(n.actions)}</div>` : ''}
+      ${n.remarks ? `<h2>Remarks</h2><div class="content">${esc(n.remarks)}</div>` : ''}
+    </div>`).join('');
+  const w = window.open('', '_blank');
+  if(!w){ alert('Please allow pop-ups for this site, then try again.'); return; }
+  w.document.write(`<!DOCTYPE html><html><head><title>CEO Review · MoM</title><style>@page{size:A4;margin:1in}body{font-family:'Helvetica Neue',Arial,sans-serif;color:#1a1d21;line-height:1.6;max-width:800px;margin:0 auto;padding:20px}.cover{text-align:center;margin-bottom:40px;padding-bottom:20px;border-bottom:3px solid #d4ff3a}.cover h1{font-size:28pt;margin:0 0 8px;color:#1a1d21}.cover .sub{font-size:14pt;color:#666;font-style:italic}.cover .ts{font-size:10pt;color:#999;margin-top:8px}.mom-page{page-break-after:always;margin-bottom:40px}.mom-page:last-child{page-break-after:auto}h1{font-size:20pt;color:#1a1d21;border-bottom:2px solid #d4ff3a;padding-bottom:6px;margin-top:24px}h2{font-size:13pt;color:#444;margin-top:16px;border-bottom:1px solid #ddd;padding-bottom:4px}.meta{background:#f5f5f5;padding:12px 16px;border-radius:4px;margin:12px 0;font-size:11pt}.meta div{margin:4px 0}.meta strong{color:#666}.content{font-size:11pt;margin:8px 0 16px}@media print{.no-print{display:none}}</style></head><body><div class="cover"><h1>Taggd · CEO Review</h1><div class="sub">Minutes of Meeting · FY 2026–27</div><div class="ts">Exported ${new Date().toLocaleString('en-IN', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></div>${sections}<div class="no-print" style="position:fixed;top:20px;right:20px;background:#d4ff3a;color:#000;padding:14px 22px;border-radius:6px;font-weight:bold;cursor:pointer" onclick="window.print()">↓ Save as PDF</div></body></html>`);
+  w.document.close();
+  setTimeout(() => w.print(), 400);
+}
+
+// Backup notes as JSON (for sharing with other users)
+function exportAsJson(){
+  if(allNotes.length === 0){ alert('No MoMs to back up.'); return; }
+  const blob = new Blob([JSON.stringify(allNotes, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `CEO_Review_MoM_backup_${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+// Restore notes from JSON backup
+function importFromJson(file){
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if(!Array.isArray(imported)) throw new Error('Invalid file format');
+      const choice = confirm(`Found ${imported.length} MoMs in backup.\n\nOK = Merge with your existing ${allNotes.length} MoMs\nCancel = Replace all existing MoMs`);
+      if(choice){
+        // Merge — skip duplicates by id
+        const existingIds = new Set(allNotes.map(n => n.id));
+        imported.forEach(n => { if(!existingIds.has(n.id)) allNotes.push(n); });
+      } else {
+        allNotes = imported;
+      }
+      saveAllNotes();
+      activeNoteId = null;
+      renderNotesList();
+      renderActiveNote();
+      alert(`Done. Total MoMs now: ${allNotes.length}`);
+    } catch(err){
+      alert('Could not import: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+// Wire up notes UI
 document.addEventListener('DOMContentLoaded', () => {
-  const newBtn = document.getElementById('notesNewBtn');
-  const exportWordBtn = document.getElementById('notesExportWordBtn');
-  const exportPdfBtn = document.getElementById('notesExportPdfBtn');
-  const clearBtn = document.getElementById('notesClearAllBtn');
-  const search = document.getElementById('notesSearch');
-  const titleIn = document.getElementById('notesTitleInput');
-  const delBtn = document.getElementById('notesDeleteBtn');
-  
-  newBtn?.addEventListener('click', createNewNote);
-  exportWordBtn?.addEventListener('click', exportAsWord);
-  exportPdfBtn?.addEventListener('click', exportAsPdf);
-  clearBtn?.addEventListener('click', clearAllNotes);
-  delBtn?.addEventListener('click', deleteActiveNote);
-  search?.addEventListener('input', e => {
+  document.getElementById('notesNewBtn')?.addEventListener('click', createNewNote);
+  document.getElementById('notesExportWordBtn')?.addEventListener('click', exportAsWord);
+  document.getElementById('notesExportPdfBtn')?.addEventListener('click', exportAsPdf);
+  document.getElementById('notesExportJsonBtn')?.addEventListener('click', exportAsJson);
+  document.getElementById('notesImportJsonBtn')?.addEventListener('click', () => document.getElementById('notesImportFile').click());
+  document.getElementById('notesImportFile')?.addEventListener('change', (e) => {
+    if(e.target.files[0]) importFromJson(e.target.files[0]);
+    e.target.value = '';
+  });
+  document.getElementById('notesClearAllBtn')?.addEventListener('click', clearAllNotes);
+  document.getElementById('notesDeleteBtn')?.addEventListener('click', deleteActiveNote);
+  document.getElementById('notesSearch')?.addEventListener('input', e => {
     notesSearchTerm = e.target.value;
     renderNotesList();
   });
-  titleIn?.addEventListener('input', updateActiveNote);
-  // Wire all structured field inputs
+  document.getElementById('notesTitleInput')?.addEventListener('input', updateActiveNote);
   ['momDate','momAttendees','momAgenda','momDiscussion','momActions','momRemarks'].forEach(id => {
     document.getElementById(id)?.addEventListener('input', updateActiveNote);
   });
 });
-
 
 // ============ VIEW TAB SWITCHER ============
 document.querySelectorAll('.view-tab').forEach(btn => {
