@@ -2331,10 +2331,10 @@ function buildAccountTypeBreakdown(){
     return qs.reduce((s, q) => s + ((c[q] && c[q][key]) || 0), 0);
   };
   
-  // Classify accounts in current scope
+  // Classify accounts in current scope — include Leadership rows since they're real revenue contributors
   const isNew = (c) => String(c.accountStatus || '').toLowerCase().includes('new');
-  const oldAccts = RAW.filter(c => !isNew(c) && !c.isLeadership);
-  const newAccts = RAW.filter(c => isNew(c) && !c.isLeadership);
+  const oldAccts = RAW.filter(c => !isNew(c));
+  const newAccts = RAW.filter(c => isNew(c));
   
   const sumKey = (accts, key) => accts.reduce((s,c) => s + acctSum(c, key), 0);
   
