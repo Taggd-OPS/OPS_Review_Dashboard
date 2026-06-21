@@ -148,6 +148,12 @@ body{min-height:100vh;background:
 
 /* COLLECTION CHART CARD */
 .coll-chart-card{background:var(--panel);border:1px solid var(--line-2);border-radius:10px;padding:24px;margin-bottom:48px;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
+/* Filter context bar (above chart) */
+.coll-chart-context{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;margin:14px 0 18px;background:rgba(212,255,58,0.04);border:1px solid rgba(212,255,58,0.12);border-radius:6px;font-size:11px}
+.coll-context-icon{color:var(--accent);font-size:13px}
+.coll-context-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-3);letter-spacing:0.1em;text-transform:uppercase;font-weight:700}
+.coll-context-pill{display:inline-block;padding:3px 10px;background:var(--bg-2);border:1px solid var(--line-2);border-radius:11px;color:var(--ink);font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:500}
+.coll-context-count{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;font-weight:700;padding:3px 10px;background:rgba(212,255,58,0.06);border:1px solid rgba(212,255,58,0.18);border-radius:11px}
 .coll-chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}
 .coll-chart-title{font-family:'Fraunces',serif;font-size:16px;color:var(--ink)}
 .coll-chart-title em{font-style:italic;color:var(--accent)}
@@ -1533,16 +1539,23 @@ footer em{font-family:'Fraunces',serif;font-style:italic;text-transform:none;let
 // Client-side password gate. This is a UX guard, not true security — anyone with
 // browser DevTools could inspect the data. For genuine confidentiality, host on
 // a server with proper backend auth.
+// 
+// Passwords map to the EXACT leader name in the Excel "Leaders" column.
+// Each non-admin user is auto-locked to see only their leader's accounts across
+// all three tabs (Annual, Monthly Actuals, Collection Detail).
 const USERS = {
-  'taggd@admin2026':   { name: 'Admin',       leader: null,          isAdmin: true  },
-  'anjli@taggd':       { name: 'Anjli',       leader: 'Anjli',       isAdmin: false },
-  'manish@taggd':      { name: 'Manish',      leader: 'Manish',      isAdmin: false },
-  'bapi@taggd':        { name: 'Bapi',        leader: 'Bapi',        isAdmin: false },
-  'ashish@taggd':      { name: 'Ashish',      leader: 'Ashish',      isAdmin: false },
-  'exclusive@taggd':   { name: 'Exclusive',   leader: 'Exclusive',   isAdmin: false },
-  'mahak@taggd':       { name: 'Mahak',       leader: 'Mahak',       isAdmin: false },
-  'middleeast@taggd':  { name: 'Middle East', leader: 'Middle East', isAdmin: false },
-  'subu@taggd':        { name: 'Subu',        leader: 'Subu',        isAdmin: false },
+  // Admin — sees everything
+  'taggd@admin2026': { name: 'Admin',           leader: null,              isAdmin: true  },
+  
+  // Leaders — each locked to their own accounts
+  'anjli@2026':      { name: 'Anjli Zutshi',    leader: 'Anjli Zutshi',    isAdmin: false },
+  'manish@2026':     { name: 'Manish Malhotra', leader: 'Manish Malhotra', isAdmin: false },
+  'bapi@2026':       { name: 'Bapi Reddy',      leader: 'Bapi Reddy',      isAdmin: false },
+  'ashish@2026':     { name: 'Ashish Kapur',    leader: 'Ashish Kapur',    isAdmin: false },
+  'mahak@2026':      { name: 'Mahak Kaura',     leader: 'Mahak Kaura',     isAdmin: false },
+  'rahul@2026':      { name: 'Rahul Khurana',   leader: 'Rahul Khurana',   isAdmin: false },
+  'amit@2026':       { name: 'Amit Jain',       leader: 'Amit Jain',       isAdmin: false },
+  'newsales@2026':   { name: 'New Sales',       leader: 'New Sales',       isAdmin: false },
 };
 
 let CURRENT_USER = null;
@@ -5055,6 +5068,30 @@ function buildCollectionChart(){
     `;
   }
   
+  // Build filter context label
+  const filterParts = [];
+  if(CURRENT_USER && !CURRENT_USER.isAdmin && CURRENT_USER.leader){
+    filterParts.push(`Leader: ${CURRENT_USER.leader}`);
+  } else if(collectionLeader && collectionLeader !== 'all'){
+    filterParts.push(`Leader: ${collectionLeader}`);
+  }
+  if(collectionPH && collectionPH !== 'all'){
+    filterParts.push(`PH: ${collectionPH}`);
+  }
+  if(collectionAccountSel && collectionAccountSel.size > 0){
+    filterParts.push(`${collectionAccountSel.size} Account${collectionAccountSel.size===1?'':'s'}`);
+  }
+  const filterContextHtml = filterParts.length 
+    ? `<div class="coll-chart-context">
+         <span class="coll-context-icon">⛬</span>
+         <span class="coll-context-label">Filtered:</span>
+         ${filterParts.map(p => `<span class="coll-context-pill">${p}</span>`).join('')}
+         <span class="coll-context-count">${scope.length} accounts</span>
+       </div>`
+    : `<div class="coll-chart-context">
+         <span class="coll-context-label">Showing all ${scope.length} accounts (no filters applied)</span>
+       </div>`;
+  
   container.innerHTML = `
     <div class="coll-chart-header">
       <div class="coll-chart-title">Target vs Actual · <em>FY 2026–27</em></div>
@@ -5063,6 +5100,7 @@ function buildCollectionChart(){
         <div class="coll-legend-item"><span class="coll-legend-swatch actual"></span>Actual Collection</div>
       </div>
     </div>
+    ${filterContextHtml}
     <svg class="coll-chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${svgContent}</svg>
     <div class="coll-chart-summary">
       <div class="coll-summary-item">
