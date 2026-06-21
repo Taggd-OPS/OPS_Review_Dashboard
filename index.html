@@ -2452,11 +2452,36 @@ function buildSrcMixQoQ(){
   const canvas = document.getElementById('srcMixQoQChart');
   if(!canvas || !meta) return;
   
+  // Determine the correct scope:
+  // - Admin with no filters: use RAW_ALL (master dataset)
+  // - Non-admin: lock to their leader from RAW_ALL
+  // - With any filters applied: use RAW (the filtered subset maintained by refreshDashboard)
+  let scope = (typeof RAW_ALL !== 'undefined' && RAW_ALL.length > 0) ? RAW_ALL : RAW;
+  
+  // Auth-level lock for non-admin
+  if(CURRENT_USER && !CURRENT_USER.isAdmin && CURRENT_USER.leader){
+    scope = scope.filter(c => (String(c.leader || '').trim() || 'Unassigned') === CURRENT_USER.leader);
+  }
+  
+  // Apply same Annual-view filters as other sections
+  if(typeof currentRegion !== 'undefined' && currentRegion !== 'all'){
+    scope = scope.filter(c => c.region === currentRegion);
+  }
+  if(typeof currentLeader !== 'undefined' && currentLeader !== 'all'){
+    scope = scope.filter(c => (String(c.leader || '').trim() || 'Unassigned') === currentLeader);
+  }
+  if(typeof currentPH !== 'undefined' && currentPH !== 'all'){
+    scope = scope.filter(c => (String(c.ph || '').trim() || 'Unassigned') === currentPH);
+  }
+  if(typeof selectedAccounts !== 'undefined' && selectedAccounts.length > 0){
+    const sel = new Set(selectedAccounts);
+    scope = scope.filter(c => sel.has(c.name));
+  }
+  
   // Quarter-level Source Mix = Σ TaggdJoin / Σ TotalJoin (across all accounts in scope)
-  // This matches the formula used in Monthly Actuals view
   const qData = QUARTERS.map(q => {
-    const tj  = RAW.reduce((s,c) => s + (c[q].taggdJoin || 0), 0);
-    const tot = RAW.reduce((s,c) => s + (c[q].totalJoin || 0), 0);
+    const tj  = scope.reduce((s,c) => s + (c[q].taggdJoin || 0), 0);
+    const tot = scope.reduce((s,c) => s + (c[q].totalJoin || 0), 0);
     return {
       tj, tot,
       pct: tot > 0 ? (tj / tot) * 100 : 0,
